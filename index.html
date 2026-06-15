@@ -889,7 +889,6 @@ th {
         Reset to Default Setup
        </button>
       </div>
-      <div class="msg" id="setupSyncMsg" style="display:none"></div>
      </div>
      <div id="weekEditorRoot">
      </div>
@@ -961,24 +960,23 @@ th {
   <script>
    
 // ===== Firebase Config =====
-const firebaseConfig={
-  apiKey:"AIzaSyCdqkQes-UMv3mE11iior9uxwQFrP_8gyY",
-  authDomain:"book-reading-event.firebaseapp.com",
-  databaseURL:"https://book-reading-event-default-rtdb.asia-southeast1.firebasedatabase.app",
-  projectId:"book-reading-event",
-  storageBucket:"book-reading-event.firebasestorage.app",
-  messagingSenderId:"737583007744",
-  appId:"1:737583007744:web:1811d42e90573c0a6eb0e5",
-  measurementId:"G-ZBG3VHSLQY"
+const firebaseConfig = {
+  apiKey: "AIzaSyCdqkQes-UMv3mE11iior9uxwQFrP_8gyY",
+  authDomain: "book-reading-event.firebaseapp.com",
+  databaseURL: "https://book-reading-event-default-rtdb.asia-southeast1.firebasedatabase.app",
+  projectId: "book-reading-event",
+  storageBucket: "book-reading-event.firebasestorage.app",
+  messagingSenderId: "737583007744",
+  appId: "1:737583007744:web:1811d42e90573c0a6eb0e5",
+  measurementId: "G-ZBG3VHSLQY"
 };
 
 // ===== Constants & Default Reading Plan =====
-const PASS="TUB2026",DB_ROOT="bookReadingEvents/tub2026/start-with-why-v2",LOCAL_PROGRAM="tubook:book-reading-event:v1:program",LOCAL_RESP="tubook:book-reading-event:v1:responses",BOOTCAMP_LOGO_URL="assets/bootcamp-logo.png",AHR_LOGO_URL="assets/ahr-logo.png",PASSPORT_STAMP_URL="assets/passport.png";
+const PASS="TUB2026",DB_ROOT="bookReadingEvents/tub2026/start-with-why-v2",LOCAL_PROGRAM="tubook:v2:program",LOCAL_RESP="tubook:v2:responses",BOOTCAMP_LOGO_URL="assets/bootcamp-logo.png",AHR_LOGO_URL="assets/ahr-logo.png",PASSPORT_STAMP_URL="assets/passport.png";
 const defaults={weeks:[{id:"week1",weekNo:1,sessionTitle:"Session 1",chapters:"Chapters 1–3",readingStart:"2026-06-15T00:00",reflectionOpen:"2026-06-16T17:00",reflectionClose:"2026-06-19T15:00",discussionStart:"2026-06-19T15:30",discussionEnd:"2026-06-19T16:00",questions:[{id:"w1q1",chapter:"Chapter 1",en:"What is one idea from Chapter 1 that made you rethink how people make decisions?",vi:"Một ý trong Chương 1 khiến bạn nhìn lại cách con người ra quyết định là gì?"},{id:"w1q2",chapter:"Chapter 2",en:"What is one example of manipulation versus inspiration that you can observe at work?",vi:"Một ví dụ về thao túng so với truyền cảm hứng mà bạn quan sát được trong công việc là gì?"},{id:"w1q3",chapter:"Chapter 3",en:"How would you explain your own WHY in one simple sentence at this point?",vi:"Ở thời điểm này, bạn sẽ diễn đạt WHY của bản thân bằng một câu đơn giản như thế nào?"}]},{id:"week2",weekNo:2,sessionTitle:"Session 2",chapters:"Chapters 4–6",readingStart:"2026-06-22T00:00",reflectionOpen:"2026-06-23T17:00",reflectionClose:"2026-06-26T15:00",discussionStart:"2026-06-26T15:30",discussionEnd:"2026-06-26T16:00",questions:[{id:"w2q1",chapter:"Chapter 4",en:"What did this chapter help you understand about trust in leadership?",vi:"Chương này giúp bạn hiểu gì về niềm tin trong lãnh đạo?"},{id:"w2q2",chapter:"Chapter 5",en:"How does decision-making connect with communication at work?",vi:"Việc ra quyết định liên hệ thế nào với giao tiếp trong công việc?"},{id:"w2q3",chapter:"Chapter 6",en:"What behavior can help you build more trust with teammates or stakeholders?",vi:"Hành vi nào giúp bạn xây dựng thêm niềm tin với đồng đội hoặc stakeholder?"}]},{id:"week3",weekNo:3,sessionTitle:"Session 3",chapters:"Chapters 7–10",readingStart:"2026-06-29T00:00",reflectionOpen:"2026-06-30T17:00",reflectionClose:"2026-07-03T15:00",discussionStart:"2026-07-03T15:30",discussionEnd:"2026-07-03T16:00",questions:[{id:"w3q1",chapter:"Chapter 7",en:"What does this chapter suggest about turning belief into action?",vi:"Chương này gợi ý điều gì về việc biến niềm tin thành hành động?"},{id:"w3q2",chapter:"Chapter 8–10",en:"What lesson can you apply when working with your team during Bootcamp?",vi:"Bài học nào bạn có thể áp dụng khi làm việc nhóm trong Bootcamp?"}]},{id:"week4",weekNo:4,sessionTitle:"Session 4",chapters:"Chapters 11–14",readingStart:"2026-07-06T00:00",reflectionOpen:"2026-07-07T17:00",reflectionClose:"2026-07-10T15:00",discussionStart:"2026-07-10T15:30",discussionEnd:"2026-07-10T16:00",questions:[{id:"w4q1",chapter:"Chapter 11–13",en:"What lesson feels most relevant to your development journey?",vi:"Bài học nào liên quan nhất đến hành trình phát triển của bạn?"},{id:"w4q2",chapter:"Final Application",en:"What commitment will you carry into Talent Uplift Bootcamp 2026?",vi:"Cam kết nào bạn sẽ mang vào Talent Uplift Bootcamp 2026?"}]}]};
 
 // ===== Runtime State =====
 let program=clone(defaults),responses={},dbReady=false,firebaseInitPromise=null,db,ref,set,get,onValue,testNow=null,selectedWeekId=null,editingWeekId=null,activeCertificate=null,admin=false,finalOnly=false;const el=id=>document.getElementById(id);
-let setupStatus={text:"",cls:""},suppressNextProgramNotice=false;
 
 // ===== Utilities =====
 function clone(x){return JSON.parse(JSON.stringify(x))}
@@ -987,87 +985,11 @@ function attr(x){return esc(x).replaceAll("\n","&#10;")}
 function norm(data){const p=clone(defaults);p.weeks=(data?.weeks||[]).map((w,i)=>({id:w.id||`week${i+1}`,weekNo:+(w.weekNo||i+1),sessionTitle:w.sessionTitle||`Session ${i+1}`,chapters:w.chapters||"Chapters",readingStart:w.readingStart,reflectionOpen:w.reflectionOpen,reflectionClose:w.reflectionClose,discussionStart:w.discussionStart,discussionEnd:w.discussionEnd,questions:(w.questions||[]).map((q,j)=>({id:q.id||`${w.id}q${j+1}`,chapter:q.chapter||"Chapter",en:q.en||"Question",vi:q.vi||"Câu hỏi"}))})).sort((a,b)=>a.weekNo-b.weekNo);return p}
 function loadLocal(){try{const p=localStorage.getItem(LOCAL_PROGRAM);if(p)program=norm(JSON.parse(p));const r=localStorage.getItem(LOCAL_RESP);if(r)responses=JSON.parse(r)||{}}catch(e){}}
 function saveLocal(){localStorage.setItem(LOCAL_PROGRAM,JSON.stringify(program));localStorage.setItem(LOCAL_RESP,JSON.stringify(responses))}
-function setSetupStatus(text,cls=""){setupStatus={text,cls};renderSetupStatus()}
-function renderSetupStatus(){const m=el("setupSyncMsg");if(!m)return;if(!setupStatus.text){m.style.display="none";m.className="msg";m.textContent="";return}m.style.display="block";m.className=`msg ${setupStatus.cls||""}`;m.textContent=setupStatus.text}
 
 // ===== Firebase Init =====
-async function initFirebase(){
-  try{
-    const a=await import("https://www.gstatic.com/firebasejs/10.12.5/firebase-app.js");
-    const d=await import("https://www.gstatic.com/firebasejs/10.12.5/firebase-database.js");
-    const app=a.getApps().length?a.getApp():a.initializeApp(firebaseConfig);
-    db=d.getDatabase(app);
-    ref=d.ref;set=d.set;get=d.get;onValue=d.onValue;
-    dbReady=true;
-    setSetupStatus("Firebase connected. Live sync is ready.","success");
-
-    onValue(ref(db,`${DB_ROOT}/program`),s=>{
-      const remoteProgram=s.val();
-      if(remoteProgram?.weeks){
-        program=norm(remoteProgram);
-        localStorage.setItem(LOCAL_PROGRAM,JSON.stringify(program));
-        render();
-        if(suppressNextProgramNotice){
-          suppressNextProgramNotice=false;
-        }else{
-          setSetupStatus("Live setup updated from Firebase.","success");
-        }
-      }else{
-        render();
-        setSetupStatus("No Firebase setup found yet. Click Save Program Setup once to publish this setup.","warn");
-      }
-    },e=>{
-      console.error("Program listener failed",e);
-      setSetupStatus("Firebase read failed. Please check Realtime Database Rules for: "+DB_ROOT,"error");
-    });
-
-    onValue(ref(db,`${DB_ROOT}/responses`),s=>{
-      responses=s.val()||{};
-      localStorage.setItem(LOCAL_RESP,JSON.stringify(responses));
-      render();
-    },e=>console.error("Responses listener failed",e));
-  }catch(e){
-    console.error("Firebase init failed",e);
-    dbReady=false;
-    firebaseInitPromise=null;
-    setSetupStatus("Firebase connection failed. Check firebaseConfig and databaseURL.","error");
-  }
-}
-async function ensureFirebaseReady(){
-  if(dbReady)return true;
-  try{
-    firebaseInitPromise=firebaseInitPromise||initFirebase();
-    await firebaseInitPromise;
-  }catch(e){
-    console.error("Firebase reconnect failed",e);
-    firebaseInitPromise=null;
-  }
-  return dbReady;
-}
-async function syncProgramToFirebase(successMessage="Saved locally and synced to Firebase."){
-  program=norm(program);
-  saveLocal();
-  setSetupStatus("Saving setup to Firebase...","");
-  const ready=await ensureFirebaseReady();
-  if(!ready){
-    setSetupStatus("Saved locally, but Firebase is not connected. Refresh the page and try Save Program Setup again.","error");
-    render();
-    return false;
-  }
-  try{
-    suppressNextProgramNotice=true;
-    await set(ref(db,`${DB_ROOT}/program`),program);
-    setSetupStatus(successMessage,"success");
-    render();
-    return true;
-  }catch(e){
-    suppressNextProgramNotice=false;
-    console.error("Firebase program save blocked",e);
-    setSetupStatus("Saved locally, but Firebase sync is blocked. Please check Realtime Database Rules for: "+DB_ROOT+"/program","error");
-    render();
-    return false;
-  }
-}
+async function initFirebase(){try{const a=await import("https://www.gstatic.com/firebasejs/10.12.5/firebase-app.js"),d=await import("https://www.gstatic.com/firebasejs/10.12.5/firebase-database.js");db=d.getDatabase(a.initializeApp(firebaseConfig));ref=d.ref;set=d.set;get=d.get;onValue=d.onValue;dbReady=true;onValue(ref(db,`${DB_ROOT}/program`),s=>{if(s.val()?.weeks){program=norm(s.val());localStorage.setItem(LOCAL_PROGRAM,JSON.stringify(program));render()}else{console.warn("No Firebase program setup found yet. Use Save Program Setup to publish the current setup.")}});onValue(ref(db,`${DB_ROOT}/responses`),s=>{responses=s.val()||{};localStorage.setItem(LOCAL_RESP,JSON.stringify(responses));render()})}catch(e){console.error("Firebase init failed",e);dbReady=false}}
+async function ensureFirebaseReady(){if(dbReady)return true;try{firebaseInitPromise=firebaseInitPromise||initFirebase();await firebaseInitPromise}catch(e){console.error("Firebase reconnect failed",e)}return dbReady}
+async function syncProgramToFirebase(successMessage="Saved locally and synced to Firebase."){program=norm(program);saveLocal();const ready=await ensureFirebaseReady();if(!ready){alert("Saved locally. Firebase is not connected yet. Refresh the page and try Save Program Setup again.");render();return false}try{await set(ref(db,`${DB_ROOT}/program`),program);alert(successMessage);render();return true}catch(e){console.error("Firebase program save blocked",e);alert("Saved locally, but Firebase sync is blocked. Please check Realtime Database Rules for: "+DB_ROOT+"/program");render();return false}}
 function parse(v){return new Date(v)}
 function fmt(v){if(!v)return"--";const d=parse(v);return isNaN(d)?v:d.toLocaleString("en-GB",{weekday:"short",day:"2-digit",month:"short",hour:"2-digit",minute:"2-digit"})}
 function dateOnly(v){if(!v)return"--";const d=parse(v);return isNaN(d)?v:d.toLocaleDateString("en-GB",{weekday:"short",day:"2-digit",month:"short"})}
@@ -1086,7 +1008,7 @@ function b(st){let map={submitted:["submitted","Submitted"],open:["open","Open"]
 function selected(){return program.weeks.find(w=>w.id===selectedWeekId)||prog(p()).done.at(-1)||program.weeks[0]}
 
 // ===== Main Render Functions =====
-function render(){logo();journey();detail();phaseCard();form();if(admin){adminSetup();dataView()}renderSetupStatus()}
+function render(){logo();journey();detail();phaseCard();form();if(admin){adminSetup();dataView()}}
 function logo(){let img=el("bootcampLogo"),fb=el("logoFallback");img.src=BOOTCAMP_LOGO_URL;img.onload=()=>{img.style.display="block";fb.style.display="none"};img.onerror=()=>{img.style.display="none";fb.style.display="block"}}
 function journey(){const pp=p(),ac=action(pp),sel=selected();el("journeyList").innerHTML=program.weeks.map(w=>{const r=resp(w,pp),st=r?"submitted":ac.week?.id===w.id&&ac.mode==="form"?"open":phase(w);let cls=`week ${r?"completed":""} ${ac.week?.id===w.id&&!r?"action":""} ${sel?.id===w.id?"selected":""}`;let helper=r?`Submitted on ${fmt(r.updatedAt||r.submittedAt)}.`:st==="open"?"Submit now to unlock the next week.":st==="reading"?`Reflection opens ${fmt(w.reflectionOpen)}.`:st==="upcoming"?"Upcoming": "Closed";return`<div class="${cls}" data-w="${w.id}"><div class="top"><div><h3>Week ${w.weekNo} · ${esc(w.sessionTitle)}</h3><p><strong>${esc(w.chapters)}</strong></p></div>${b(st)}</div><p>Reflection Meeting: ${dateOnly(w.discussionStart)}</p></div>`}).join("");document.querySelectorAll("[data-w]").forEach(c=>c.onclick=()=>{selectedWeekId=c.dataset.w;journey();detail()})}
 function detail(){const w=selected(),pp=p(),r=resp(w,pp),shell=el("journeyDetailShell"),root=el("journeyDetail");if(!w||!pp||!r){shell.classList.remove("open");root.innerHTML="";return}shell.classList.add("open");const attemptCount=r.submissionCount||r.attempts?.length||1;const left=`<div class="chips"><span class="chip">📚 ${esc(w.chapters)}</span><span class="chip">🕒 ${fmt(r.updatedAt||r.submittedAt)}</span><span class="chip">📝 ${attemptCount} submit(s)</span><span class="chip">🪪 ${esc(r.certificateId)}</span></div>${(r.answers||[]).map((a,i)=>`<div class="answer"><div class="label">Question ${i+1} · ${esc(a.chapter)}</div><p class="q">${esc(a.questionEn)}</p><p class="v">${esc(a.questionVi)}</p><div class="body">${esc(a.answer)}</div></div>`).join("")}`;const canEdit=now()<parse(w.reflectionClose);const right=`<div class="msg success">Submission found. You can reopen the passport snapshot for this week.</div><div class="actions"><button id="passportBtn" class="orange">View Passport for Week ${w.weekNo}</button>${canEdit?`<button id="editWeekBtn" class="secondary">Edit Answers</button>`:""}</div><div class="msg">If you used another browser/name format, save the matching profile and try again.</div>`;root.innerHTML=`<div class="detail-grid"><div class="panel"><div style="display:flex;justify-content:space-between;gap:12px"><div><h3>Week ${w.weekNo} · ${esc(w.sessionTitle)}</h3><p class="sub">Submitted reflection review</p></div>${b("submitted")}</div>${left}</div><div class="panel"><h3>Week Snapshot</h3><p class="sub">Reflection: ${fmt(w.reflectionOpen)} → ${fmt(w.reflectionClose)}</p><div class="chips"><span class="chip">💬 Teams: ${fmt(w.discussionStart)} → ${fmt(w.discussionEnd)}</span></div>${right}</div></div>`;el("passportBtn").onclick=()=>passport(r,w);const editBtn=el("editWeekBtn");if(editBtn)editBtn.onclick=()=>editWeek(w.id)}
@@ -1124,7 +1046,7 @@ function download(){
 
 // ===== Organizer Setup =====
 function readingStartFrom(v){let d=new Date(v);if(isNaN(d))return v;let offset=(d.getDay()+6)%7;d.setDate(d.getDate()-offset);d.setHours(0,0,0,0);return localDT(d)}
-function adminSetup(){let root=el("weekEditorRoot");root.innerHTML=program.weeks.map((w,i)=>`<div class="week-editor"><div class="week-editor-head"><h4>Week ${w.weekNo} · ${esc(w.sessionTitle)}</h4></div><div class="week-editor-body"><div class="setup-block"><h4>1. Week & Schedule Setup</h4><div class="editor-grid three"><div><label>Week No</label><input data-w="${i}" data-f="weekNo" type="number" value="${w.weekNo}"></div><div><label>Session Title</label><input data-w="${i}" data-f="sessionTitle" value="${attr(w.sessionTitle)}"></div><div><label>Chapters</label><input data-w="${i}" data-f="chapters" value="${attr(w.chapters)}"></div></div><div class="editor-grid"><div><label>Reflection Open</label><input data-w="${i}" data-f="reflectionOpen" type="datetime-local" value="${w.reflectionOpen}"></div><div><label>Reflection Close</label><input data-w="${i}" data-f="reflectionClose" type="datetime-local" value="${w.reflectionClose}"></div><div><label>Discussion Start</label><input data-w="${i}" data-f="discussionStart" type="datetime-local" value="${w.discussionStart}"></div><div><label>Discussion End</label><input data-w="${i}" data-f="discussionEnd" type="datetime-local" value="${w.discussionEnd}"></div></div></div><div class="question-block"><div class="question-head"><h4>2. Bilingual Reflection Questions</h4><button class="small" data-addq="${i}">Add Question</button></div>${w.questions.map((q,j)=>`<div class="q-editor"><div class="editor-grid three"><div><label>Chapter / Section</label><input data-w="${i}" data-q="${j}" data-qf="chapter" value="${attr(q.chapter)}"></div><div style="grid-column:span 2"><label>Question EN</label><textarea data-w="${i}" data-q="${j}" data-qf="en">${esc(q.en)}</textarea></div><div style="grid-column:span 3"><label>Question VI</label><textarea data-w="${i}" data-q="${j}" data-qf="vi">${esc(q.vi)}</textarea></div></div></div>`).join("")}</div></div></div>`).join("");root.querySelectorAll("[data-f]").forEach(x=>x.oninput=()=>{let w=program.weeks[+x.dataset.w],f=x.dataset.f;w[f]=f==="weekNo"?+x.value:x.value;if(f==="reflectionOpen")w.readingStart=readingStartFrom(x.value)});root.querySelectorAll("[data-qf]").forEach(x=>x.oninput=()=>program.weeks[+x.dataset.w].questions[+x.dataset.q][x.dataset.qf]=x.value);root.querySelectorAll("[data-addq]").forEach(x=>x.onclick=()=>{let w=program.weeks[+x.dataset.addq];w.questions.push({id:`${w.id}q${Date.now()}`,chapter:"Chapter",en:"New question",vi:"Câu hỏi mới"});saveLocal();adminSetup();renderSetupStatus()})}
+function adminSetup(){let root=el("weekEditorRoot");root.innerHTML=program.weeks.map((w,i)=>`<div class="week-editor"><div class="week-editor-head"><h4>Week ${w.weekNo} · ${esc(w.sessionTitle)}</h4></div><div class="week-editor-body"><div class="setup-block"><h4>1. Week & Schedule Setup</h4><div class="editor-grid three"><div><label>Week No</label><input data-w="${i}" data-f="weekNo" type="number" value="${w.weekNo}"></div><div><label>Session Title</label><input data-w="${i}" data-f="sessionTitle" value="${attr(w.sessionTitle)}"></div><div><label>Chapters</label><input data-w="${i}" data-f="chapters" value="${attr(w.chapters)}"></div></div><div class="editor-grid"><div><label>Reflection Open</label><input data-w="${i}" data-f="reflectionOpen" type="datetime-local" value="${w.reflectionOpen}"></div><div><label>Reflection Close</label><input data-w="${i}" data-f="reflectionClose" type="datetime-local" value="${w.reflectionClose}"></div><div><label>Discussion Start</label><input data-w="${i}" data-f="discussionStart" type="datetime-local" value="${w.discussionStart}"></div><div><label>Discussion End</label><input data-w="${i}" data-f="discussionEnd" type="datetime-local" value="${w.discussionEnd}"></div></div></div><div class="question-block"><div class="question-head"><h4>2. Bilingual Reflection Questions</h4><button class="small" data-addq="${i}">Add Question</button></div>${w.questions.map((q,j)=>`<div class="q-editor"><div class="editor-grid three"><div><label>Chapter / Section</label><input data-w="${i}" data-q="${j}" data-qf="chapter" value="${attr(q.chapter)}"></div><div style="grid-column:span 2"><label>Question EN</label><textarea data-w="${i}" data-q="${j}" data-qf="en">${esc(q.en)}</textarea></div><div style="grid-column:span 3"><label>Question VI</label><textarea data-w="${i}" data-q="${j}" data-qf="vi">${esc(q.vi)}</textarea></div></div></div>`).join("")}</div></div></div>`).join("");root.querySelectorAll("[data-f]").forEach(x=>x.oninput=()=>{let w=program.weeks[+x.dataset.w],f=x.dataset.f;w[f]=f==="weekNo"?+x.value:x.value;if(f==="reflectionOpen")w.readingStart=readingStartFrom(x.value)});root.querySelectorAll("[data-qf]").forEach(x=>x.oninput=()=>program.weeks[+x.dataset.w].questions[+x.dataset.q][x.dataset.qf]=x.value);root.querySelectorAll("[data-addq]").forEach(x=>x.onclick=()=>{let w=program.weeks[+x.dataset.addq];w.questions.push({id:`${w.id}q${Date.now()}`,chapter:"Chapter",en:"New question",vi:"Câu hỏi mới"});adminSetup()})}
 function localDT(d){let z=n=>String(n).padStart(2,"0");return`${d.getFullYear()}-${z(d.getMonth()+1)}-${z(d.getDate())}T${z(d.getHours())}:${z(d.getMinutes())}`}
 async function openAll(){let n=new Date(),a=new Date(n-7200000),b=new Date(n-3600000),c=new Date(n.getTime()+2592000000),d=new Date(n.getTime()+2593800000),e=new Date(n.getTime()+2595600000);program.weeks=program.weeks.map(w=>({...w,readingStart:localDT(a),reflectionOpen:localDT(b),reflectionClose:localDT(c),discussionStart:localDT(d),discussionEnd:localDT(e)}));saveLocal();render();if(admin)adminSetup();await syncProgramToFirebase("All weeks are open for testing and synced to Firebase.")}
 async function saveProgram(){await syncProgramToFirebase("Saved locally and synced to Firebase.")}
