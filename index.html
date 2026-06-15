@@ -1,1070 +1,1497 @@
 <!DOCTYPE html>
 <html lang="en">
- <head>
-  <meta charset="utf-8"/>
-  <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
-  <title>
-   Book Reading & Reflection Event
-  </title>
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Talent Uplift Bootcamp 2026 – Live Agenda</title>
   <style>
-   
-:root {
-  --navy:#062a63;
-  --orange:#f26322;
-  --teal:#0b3a48;
-  --bg:#f6f7fb;
-  --text:#172033;
-  --muted:#667085;
-  --line:#d9dee8;
-  --green:#18a058;
-  --gold:#c6922e;
-  --shadow:0 16px 42px rgba(16,24,40,.08);
-  --radius:22px
-}
-* {
-  box-sizing:border-box
-}
-body {
-  margin:0;
-  font-family:Arial,Helvetica,sans-serif;
-  color:var(--text);
-  background:radial-gradient(circle at 15% 0%,rgba(242,99,34,.1),transparent 35%),linear-gradient(180deg,#fff 0%,var(--bg) 55%,#fff 100%)
-}
-header {
-  padding:22px 18px;
-  background:#fff3ea;
-  border-bottom:1px solid rgba(242,99,34,.18)
-}
-.brand {
-  max-width:1280px;
-  margin:0 auto;
-  display:flex;
-  gap:18px;
-  align-items:center;
-  justify-content:center;
-  flex-wrap:wrap
-}
-.logo {
-  width:150px;
-  height:86px;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  padding:0;
-  background:transparent;
-  box-shadow:none;
-  border-radius:0
-}
-.logo img {
-  max-width:150px;
-  max-height:86px;
-  object-fit:contain;
-  display:none
-}
-.fallback {
-  text-align:center;
-  color:var(--navy);
-  font-weight:900;
-  line-height:1.05
-}
-.fallback span {
-  display:block
-}
-.fallback .mini {
-  font-size:10px;
-  color:var(--orange);
-  letter-spacing:.12em
-}
-.fallback .big {
-  font-size:22px
-}
-.fallback .small {
-  font-size:11px;
-  color:var(--teal)
-}
-.brand-copy {
-  max-width:820px
-}
-.kicker {
-  display:inline-flex;
-  padding:6px 12px;
-  border-radius:999px;
-  background:#fff;
-  color:var(--orange);
-  font-size:11px;
-  font-weight:900;
-  letter-spacing:.12em;
-  text-transform:uppercase;
-  margin-bottom:8px
-}
-h1 {
-  margin:0;
-  color:var(--navy);
-  font-size:clamp(24px,4vw,42px);
-  line-height:1.06
-}
-.subtitle {
-  margin:8px 0 0;
-  color:var(--muted);
-  font-size:14px
-}
-.topbar {
-  max-width:1280px;
-  margin:14px auto 0;
-  display:flex;
-  gap:10px;
-  justify-content:center;
-  flex-wrap:wrap
-}
-.pill {
-  display:inline-flex;
-  align-items:center;
-  gap:8px;
-  background:#fff;
-  border:1px solid var(--line);
-  border-radius:999px;
-  padding:7px 11px;
-  color:#344054;
-  font-size:12px
-}
-.dot {
-  width:10px;
-  height:10px;
-  border-radius:50%;
-  display:inline-block
-}
-.dot.reading {
-  background:var(--gold)
-}
-.dot.open {
-  background:var(--green)
-}
-.dot.closed {
-  background:#98a2b3
-}
-main {
-  max-width:1280px;
-  margin:26px auto 60px;
-  padding:0 16px
-}
-.card {
-  background:#fff;
-  border:1px solid var(--line);
-  border-radius:var(--radius);
-  box-shadow:var(--shadow);
-  overflow:hidden
-}
-.pad {
-  padding:24px
-}
-.title {
-  margin:0 0 8px;
-  color:var(--navy);
-  font-size:24px
-}
-.sub {
-  margin:0;
-  color:var(--muted);
-  font-size:14px;
-  line-height:1.45
-}
-.journey {
-  margin-bottom:20px
-}
-.weeks {
-  display:flex;
-  gap:14px;
-  overflow-x:auto;
-  padding:16px 2px 7px
-}
-.week {
-  min-width:255px;
-  flex:1 0 255px;
-  border:1px solid var(--line);
-  border-radius:18px;
-  padding:16px;
-  cursor:pointer;
-  transition:.15s;
-  background:#fff
-}
-.week:hover {
-  transform:translateY(-2px);
-  box-shadow:0 12px 24px rgba(16,24,40,.08)
-}
-.week.selected {
-  outline:2px solid rgba(6,42,99,.16)
-}
-.week.completed {
-  background:#fbfffd;
-  border-color:rgba(24,160,88,.35)
-}
-.week.action {
-  background:#fff8f3;
-  border-color:rgba(242,99,34,.35)
-}
-.week .top {
-  display:flex;
-  justify-content:space-between;
-  gap:10px;
-  align-items:flex-start
-}
-.week h3 {
-  margin:0;
-  color:var(--navy);
-  font-size:17px;
-  line-height:1.35
-}
-.week p {
-  margin:6px 0 0;
-  color:var(--muted);
-  font-size:13px;
-  line-height:1.45
-}
-.badge {
-  display:inline-flex;
-  align-items:center;
-  gap:6px;
-  border-radius:999px;
-  font-size:12px;
-  font-weight:800;
-  letter-spacing:.02em;
-  padding:6px 11px;
-  line-height:1;
-  white-space:nowrap;
-  border:1px solid transparent;
-  box-shadow:none
-}
-.badge.submitted {
-  background:#eaf8ef;
-  color:#18794e;
-  border-color:#cfead8
-}
-.badge.submitted::before {
-  content:"✓";
-  display:inline-flex;
-  align-items:center;
-  justify-content:center;
-  width:16px;
-  height:16px;
-  border-radius:999px;
-  background:#22a861;
-  color:#fff;
-  font-size:11px;
-  font-weight:900
-}
-.badge.open {
-  background:#e7f8ef;
-  color:#067647;
-  border-color:#bfe8cf
-}
-.badge.reading {
-  background:#fff4cc;
-  color:#8a5a00;
-  border-color:#ffe39a
-}
-.badge.closed {
-  background:#eef2f6;
-  color:#475467;
-  border-color:#d0d5dd
-}
-.badge.upcoming {
-  background:#fff0c2;
-  color:#93370d;
-  border-color:#fedf89
-}
-.detail {
-  display:none;
-  margin-bottom:20px
-}
-.detail.open {
-  display:block
-}
-.detail-grid {
-  display:grid;
-  grid-template-columns:minmax(0,1.2fr) minmax(300px,.8fr);
-  gap:18px
-}
-.panel {
-  background:linear-gradient(135deg,#f7f9fc,#fff);
-  border:1px solid rgba(217,222,232,.7);
-  border-radius:18px;
-  padding:18px
-}
-.panel h3 {
-  margin:0 0 6px;
-  color:var(--navy);
-  font-size:21px
-}
-.chips {
-  display:flex;
-  flex-wrap:wrap;
-  gap:8px;
-  margin:12px 0
-}
-.chip {
-  display:inline-flex;
-  padding:7px 10px;
-  border-radius:999px;
-  background:#fff;
-  border:1px solid var(--line);
-  font-size:12px;
-  color:#344054;
-  font-weight:700
-}
-.answer {
-  background:#fff;
-  border:1px solid rgba(217,222,232,.75);
-  border-radius:14px;
-  padding:14px;
-  margin-bottom:10px
-}
-.answer .label {
-  font-size:12px;
-  text-transform:uppercase;
-  letter-spacing:.05em;
-  color:var(--muted);
-  font-weight:900;
-  margin-bottom:7px
-}
-.answer .q {
-  font-weight:800;
-  line-height:1.45;
-  margin:0 0 6px
-}
-.answer .v {
-  font-size:13px;
-  font-style:italic;
-  color:var(--muted);
-  margin:0 0 10px
-}
-.answer .body {
-  white-space:pre-wrap;
-  line-height:1.6;
-  color:#344054
-}
-.phase {
-  padding:26px;
-  min-height:188px;
-  border:0;
-  margin-bottom:20px
-}
-.phase.reading {
-  background:linear-gradient(135deg,#fff2c7,#fff9eb 58%,#fff)
-}
-.phase.open {
-  background:linear-gradient(135deg,#dff7ea,#effcf4 58%,#fff)
-}
-.phase.closed {
-  background:linear-gradient(135deg,#eef2f6,#f8fafc 58%,#fff)
-}
-.phase.upcoming {
-  background:linear-gradient(135deg,#ffe6d6,#fff4ee 58%,#fff)
-}
-.phase-label {
-  display:inline-flex;
-  background:#fff;
-  border:1px solid rgba(6,42,99,.1);
-  border-radius:999px;
-  padding:7px 11px;
-  color:var(--navy);
-  font-weight:900;
-  font-size:12px;
-  text-transform:uppercase;
-  letter-spacing:.08em;
-  margin-bottom:12px
-}
-.phase h2 {
-  margin:0 0 10px;
-  color:var(--navy);
-  font-size:28px
-}
-.phase p {
-  margin:8px 0;
-  color:#344054
-}
-.summary {
-  display:grid;
-  grid-template-columns:repeat(3,minmax(0,1fr));
-  gap:12px;
-  margin-bottom:15px
-}
-.tile {
-  border-radius:18px;
-  padding:15px 16px;
-  min-height:92px
-}
-.tile .label {
-  font-size:12px;
-  font-weight:900;
-  text-transform:uppercase;
-  letter-spacing:.06em;
-  opacity:.78;
-  margin-bottom:8px
-}
-.tile .value {
-  font-size:21px;
-  font-weight:900;
-  color:var(--navy)
-}
-.tile .subtxt {
-  font-size:13px;
-  color:#475467;
-  margin-top:5px
-}
-.tile.status {
-  background:#dff7ea
-}
-.tile.progress {
-  background:#e8efff
-}
-.tile.window {
-  background:#fff1e7
-}
-.profile {
-  background:linear-gradient(135deg,#f1f5ff,#fff);
-  border-radius:18px;
-  padding:18px;
-  margin-bottom:16px
-}
-.row {
-  display:grid;
-  grid-template-columns:1fr 1fr;
-  gap:12px;
-  margin-bottom:12px
-}
-label {
-  display:block;
-  margin:0 0 7px;
-  color:#344054;
-  font-size:13px;
-  font-weight:800
-}
-input,textarea,select {
-  width:100%;
-  border:1px solid var(--line);
-  border-radius:12px;
-  padding:11px 12px;
-  background:#fff;
-  color:var(--text);
-  font:inherit
-}
-textarea {
-  min-height:105px;
-  resize:vertical;
-  line-height:1.5
-}
-.question {
-  background:linear-gradient(135deg,#fff,#fbfcfe);
-  border-radius:18px;
-  padding:18px;
-  margin-bottom:14px;
-  box-shadow:0 10px 24px rgba(16,24,40,.05)
-}
-.chapter {
-  display:inline-flex;
-  background:#edf5ff;
-  color:var(--navy);
-  border-radius:999px;
-  padding:5px 8px;
-  font-size:11px;
-  font-weight:900;
-  text-transform:uppercase;
-  margin-bottom:10px
-}
-.q-en {
-  margin:0 0 5px;
-  font-weight:800;
-  line-height:1.45
-}
-.q-vi {
-  margin:0 0 12px;
-  color:var(--muted);
-  font-size:13px;
-  font-style:italic;
-  line-height:1.45
-}
-.msg {
-  margin-top:12px;
-  border-radius:14px;
-  padding:12px 14px;
-  background:#edf5ff;
-  color:var(--navy);
-  font-size:13px;
-  line-height:1.45
-}
-.msg.success {
-  background:#e8f8ef;
-  color:#067647
-}
-.msg.warn {
-  background:#fff7dc;
-  color:#8a5a00
-}
-.msg.error {
-  background:#fff0ed;
-  color:#b42318
-}
-button {
-  border:0;
-  border-radius:12px;
-  padding:11px 15px;
-  background:var(--navy);
-  color:#fff;
-  font-weight:800;
-  cursor:pointer;
-  box-shadow:0 3px 0 rgba(6,42,99,.2)
-}
-button.secondary {
-  background:#eef2f6;
-  color:#25324b;
-  box-shadow:0 3px 0 rgba(102,112,133,.18)
-}
-button.orange {
-  background:var(--orange);
-  box-shadow:0 3px 0 rgba(170,67,23,.24)
-}
-button.danger {
-  background:#b42318
-}
-button.small {
-  padding:7px 10px;
-  font-size:12px
-}
-.actions {
-  display:flex;
-  flex-wrap:wrap;
-  gap:10px;
-  align-items:center;
-  margin-top:12px
-}
-.cert-wrap {
-  display:none;
-  position:fixed;
-  inset:0;
-  z-index:9999;
-  background:rgba(6,42,99,.62);
-  padding:28px;
-  overflow:auto
-}
-.cert-wrap.open {
-  display:flex;
-  flex-direction:column;
-  align-items:center;
-  justify-content:flex-start
-}
-#certificateCanvas {
-  width:min(100%,900px);
-  display:block;
-  margin:0 auto;
-  background:transparent;
-  box-shadow:0 20px 55px rgba(16,24,40,.22)
-}
-.cert-wrap .actions,.cert-wrap .msg {
-  background:#fff;
-  border-radius:14px;
-  padding:10px 12px
-}
-.admin-shell {
-  max-width:1280px;
-  margin:28px auto 0;
-  padding:0 16px 28px
-}
-.admin-trigger {
-  min-height:42px;
-  border:1px solid var(--line);
-  background:rgba(255,255,255,.5);
-  border-radius:16px;
-  cursor:pointer
-}
-.login {
-  display:none;
-  justify-content:center;
-  gap:8px;
-  flex-wrap:wrap;
-  padding:12px;
-  border:1px solid var(--line);
-  background:#fff;
-  border-radius:16px;
-  margin-top:8px
-}
-.admin-shell.open .login {
-  display:flex
-}
-.login {
-  align-items:center
-}
-.login input#passInput {
-  width:260px;
-  max-width:45vw;
-  flex:0 0 260px
-}
-.login button {
-  padding:9px 14px
-}
-.admin {
-  display:none;
-  margin-top:14px;
-  padding:18px;
-  background:#fff;
-  border:1px solid var(--line);
-  border-radius:var(--radius);
-  box-shadow:var(--shadow)
-}
-.admin.open {
-  display:block
-}
-.tabs {
-  display:flex;
-  gap:8px;
-  flex-wrap:wrap;
-  margin-bottom:16px
-}
-.tab {
-  background:#eef2f6;
-  color:#25324b;
-  box-shadow:none
-}
-.tab.active {
-  background:var(--navy);
-  color:#fff
-}
-.admin-view {
-  display:none
-}
-.admin-view.active {
-  display:block
-}
-.admin-section {
-  padding:14px;
-  border:1px solid var(--line);
-  border-radius:16px;
-  background:#fbfcfe;
-  margin-bottom:14px
-}
-.hint {
-  color:var(--muted);
-  font-size:13px;
-  line-height:1.45
-}
-.week-editor {
-  border:1px solid var(--line);
-  border-radius:16px;
-  background:#fff;
-  margin-bottom:14px;
-  overflow:hidden
-}
-.week-editor-head {
-  padding:14px;
-  background:#fff3ea;
-  border-bottom:1px solid rgba(242,99,34,.16);
-  display:flex;
-  justify-content:space-between;
-  gap:12px;
-  align-items:center;
-  flex-wrap:wrap
-}
-.week-editor-body {
-  padding:14px
-}
-.editor-grid {
-  display:grid;
-  grid-template-columns:repeat(2,minmax(0,1fr));
-  gap:12px;
-  margin-bottom:12px
-}
-.editor-grid.three {
-  grid-template-columns:repeat(3,minmax(0,1fr))
-}
-.setup-block {
-  border:1px solid var(--line);
-  border-radius:16px;
-  background:#fbfcfe;
-  padding:14px;
-  margin-bottom:14px
-}
-.setup-block h4 {
-  margin:0 0 12px;
-  color:var(--navy);
-  font-size:16px
-}
-.question-block {
-  border:1px solid rgba(242,99,34,.18);
-  border-radius:16px;
-  background:#fffdf9;
-  padding:14px
-}
-.question-head {
-  display:flex;
-  justify-content:space-between;
-  gap:12px;
-  align-items:center;
-  flex-wrap:wrap;
-  margin-bottom:10px
-}
-.q-editor {
-  border:1px dashed var(--line);
-  border-radius:14px;
-  padding:12px;
-  background:#fcfdff;
-  margin-top:10px
-}
-.table-wrap {
-  overflow-x:auto;
-  border:1px solid var(--line);
-  border-radius:14px;
-  background:#fff
-}
-table {
-  width:100%;
-  border-collapse:collapse
-}
-th,td {
-  padding:10px 9px;
-  border-top:1px solid var(--line);
-  vertical-align:top;
-  font-size:13px
-}
-th {
-  background:#0c3c4b;
-  color:#fff;
-  text-align:left
-}
-.empty {
-  padding:26px;
-  text-align:center;
-  color:var(--muted);
-  border:1px dashed var(--line);
-  background:#fff;
-  border-radius:var(--radius)
-}
-@media(max-width:900px) {
-  .row,.summary,.detail-grid,.editor-grid,.editor-grid.three {
-    grid-template-columns:1fr
-  }
-  .week {
-    min-width:235px;
-    flex-basis:235px
-  }
-  .brand {
-    text-align:center
-  }
-  .brand-copy {
-    text-align:center
-  }
-}
+    :root {
+      --navy: #062a63;
+      --deep-teal: #0b3a48;
+      --orange: #f26322;
+      --soft-orange: #fff3ea;
+      --bg: #f5f7fb;
+      --card: #ffffff;
+      --text: #172033;
+      --muted: #667085;
+      --line: #d9dee8;
+      --now: #dff7ea;
+      --now-border: #18a058;
+      --next: #fff4d9;
+      --next-border: #f3a712;
+      --completed: #eef1f5;
+      --break: #edf0f2;
+      --break-border: #98a2b3;
+      --danger: #b42318;
+      --shadow: 0 12px 30px rgba(16, 24, 40, 0.08);
+      --radius: 18px;
+    }
 
+    * { box-sizing: border-box; }
+
+    body {
+      margin: 0;
+      font-family: Arial, Helvetica, sans-serif;
+      background: linear-gradient(180deg, #ffffff 0%, var(--bg) 55%, #ffffff 100%);
+      color: var(--text);
+    }
+
+    header {
+      padding: 16px 18px 14px;
+      text-align: center;
+      background: rgba(255, 243, 234, 0.96);
+      border-bottom: 1px solid rgba(242, 99, 34, 0.18);
+      position: relative;
+      z-index: 1;
+    }
+
+    .mini-header {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      z-index: 30;
+      padding: 9px 14px;
+      background: rgba(255, 243, 234, 0.96);
+      border-bottom: 1px solid rgba(242, 99, 34, 0.18);
+      box-shadow: 0 8px 20px rgba(16, 24, 40, 0.08);
+      backdrop-filter: blur(10px);
+      transform: translateY(-110%);
+      opacity: 0;
+      pointer-events: none;
+      transition: transform 0.24s ease, opacity 0.24s ease;
+    }
+
+    .mini-header-inner {
+      max-width: 1180px;
+      margin: 0 auto;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 12px;
+      min-width: 0;
+    }
+
+    body.compact-header .mini-header {
+      transform: translateY(0);
+      opacity: 1;
+      pointer-events: auto;
+    }
+
+    .mini-logo {
+      width: 38px;
+      height: 30px;
+      object-fit: contain;
+      flex: 0 0 auto;
+      display: none;
+    }
+
+    .mini-title {
+      color: var(--navy);
+      font-weight: 800;
+      font-size: clamp(14px, 2.4vw, 20px);
+      letter-spacing: 0.01em;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      min-width: 0;
+    }
+
+    .mini-time-pill {
+      display: none;
+    }
+
+    .brand-row {
+      max-width: 1180px;
+      margin: 0 auto;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+    }
+
+    .logo-shell {
+      width: 150px;
+      height: 86px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: visible;
+      flex: 0 0 auto;
+      margin-bottom: 2px;
+    }
+
+    .logo-shell img {
+      max-width: 100%;
+      max-height: 100%;
+      object-fit: contain;
+      display: none;
+    }
+
+    .logo-placeholder {
+      color: var(--navy);
+      font-weight: 900;
+      letter-spacing: 0.04em;
+      font-size: 17px;
+    }
+
+    .brand-copy {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    .brand-kicker { display: none; }
+
+    h1 {
+      margin: 0 auto 4px;
+      font-size: clamp(22px, 3.2vw, 40px);
+      line-height: 1.08;
+      color: var(--navy);
+      letter-spacing: 0.01em;
+      font-weight: 800;
+      transition: font-size 0.22s ease, margin 0.22s ease;
+    }
+
+
+    .subtitle {
+      color: var(--muted);
+      font-size: 14px;
+      margin: 0;
+      transition: opacity 0.22s ease, max-height 0.22s ease, transform 0.22s ease;
+      max-height: 22px;
+    }
+
+    .topbar {
+      max-width: 1180px;
+      margin: 10px auto 0;
+      display: flex;
+      gap: 12px;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: center;
+      transition: opacity 0.22s ease, max-height 0.22s ease, transform 0.22s ease, margin 0.22s ease;
+      max-height: 44px;
+    }
+
+    .status-pill, .legend-item {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      border-radius: 999px;
+      padding: 6px 10px;
+      font-size: 12px;
+      background: #f8fafc;
+      border: 1px solid var(--line);
+      color: #344054;
+    }
+
+    .legend {
+      max-width: 1180px;
+      margin: 10px auto 0;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      justify-content: center;
+    }
+
+    .dot {
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      display: inline-block;
+      border: 1px solid rgba(0,0,0,0.08);
+    }
+
+    .dot-now { background: var(--now-border); }
+    .dot-next { background: var(--next-border); }
+    .dot-completed { background: #98a2b3; }
+    .dot-break { background: #cfd4dc; }
+
+    main {
+      max-width: 1180px;
+      margin: 24px auto 50px;
+      padding: 0 16px;
+    }
+
+    .footer-admin-shell {
+      max-width: 1280px;
+      margin: 22px auto 0;
+      padding: 0 16px 24px;
+    }
+
+    .footer-admin-trigger {
+      min-height: 44px;
+      border: 1px solid rgba(217, 222, 232, 0.75);
+      background: rgba(255, 255, 255, 0.45);
+      border-radius: 16px;
+      cursor: pointer;
+      transition: border-color 0.15s ease, background 0.15s ease;
+    }
+
+    .footer-admin-trigger:hover {
+      border-color: rgba(152, 162, 179, 0.75);
+      background: rgba(255, 255, 255, 0.72);
+    }
+
+    .organizer-login {
+      display: none;
+      justify-content: center;
+      gap: 8px;
+      flex-wrap: wrap;
+      padding: 12px;
+      border: 1px solid rgba(217, 222, 232, 0.95);
+      background: rgba(255, 255, 255, 0.92);
+      border-radius: 16px;
+      margin-top: 8px;
+    }
+
+    .footer-admin-shell.open .organizer-login { display: flex; }
+
+    input, textarea, button, select {
+      font: inherit;
+    }
+
+    input, textarea, select {
+      border: 1px solid var(--line);
+      border-radius: 10px;
+      padding: 10px 12px;
+      background: #ffffff;
+      color: var(--text);
+    }
+
+    button {
+      border: 0;
+      border-radius: 10px;
+      padding: 10px 14px;
+      background: var(--navy);
+      color: #ffffff;
+      font-weight: 700;
+      cursor: pointer;
+      transition: transform 0.12s ease, opacity 0.12s ease;
+    }
+
+    button:hover { transform: translateY(-1px); }
+    button.secondary { background: #eef2f6; color: #25324b; }
+    button.orange { background: var(--orange); }
+    button.danger { background: var(--danger); }
+    button.small { padding: 7px 10px; font-size: 12px; border-radius: 8px; }
+
+    .admin-panel {
+      display: none;
+      margin: 14px auto 0;
+      padding: 18px;
+      background: #ffffff;
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+    }
+
+    .admin-panel.open { display: block; }
+
+    .admin-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 16px;
+    }
+
+    .admin-section {
+      padding: 14px;
+      border: 1px solid var(--line);
+      border-radius: 14px;
+      background: #fbfcfe;
+    }
+
+    .admin-section h3 {
+      margin: 0 0 10px;
+      color: var(--navy);
+      font-size: 16px;
+    }
+
+    .hint {
+      color: var(--muted);
+      font-size: 13px;
+      line-height: 1.45;
+      margin: 6px 0 12px;
+    }
+
+    .csv-box {
+      width: 100%;
+      min-height: 170px;
+      resize: vertical;
+      font-family: Consolas, Monaco, monospace;
+      font-size: 12px;
+      line-height: 1.45;
+    }
+
+    .agenda-day {
+      margin-bottom: 28px;
+      background: #ffffff;
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      overflow: hidden;
+      border: 1px solid var(--line);
+    }
+
+    .day-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      background: var(--deep-teal);
+      color: #ffffff;
+      padding: 16px 18px;
+    }
+
+    .day-title {
+      margin: 0;
+      font-size: 22px;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+    }
+
+    .day-date {
+      opacity: 0.9;
+      font-weight: 700;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      table-layout: fixed;
+    }
+
+    th, td {
+      border-top: 1px solid var(--line);
+      padding: 12px 10px;
+      vertical-align: middle;
+      line-height: 1.35;
+    }
+
+    th {
+      background: #0c3c4b;
+      color: #ffffff;
+      font-size: 14px;
+      text-align: center;
+    }
+
+    td.time, td.duration, td.pic { text-align: center; }
+    td.session { font-weight: 700; }
+    .capability { color: var(--orange); }
+    .muted { color: var(--muted); }
+
+    tr.is-break td {
+      background: var(--break);
+      font-style: italic;
+    }
+
+    tr.is-completed td {
+      background: var(--completed);
+      color: #667085;
+    }
+
+    tr.is-next td {
+      background: var(--next);
+      border-top: 2px solid var(--next-border);
+      border-bottom: 2px solid var(--next-border);
+    }
+
+    tr.is-now td {
+      background: var(--now);
+      border-top: 2px solid var(--now-border);
+      border-bottom: 2px solid var(--now-border);
+    }
+
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+      border-radius: 999px;
+      font-size: 11px;
+      font-weight: 800;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+      padding: 4px 8px;
+      margin-left: 8px;
+      white-space: nowrap;
+    }
+
+    .badge.now { color: #067647; background: #abefc6; }
+    .badge.next { color: #93370d; background: #fedf89; }
+    .badge.break { color: #475467; background: #d0d5dd; }
+
+    .mobile-days { display: none; }
+
+    .card-list {
+      padding: 14px;
+      display: grid;
+      gap: 12px;
+    }
+
+    .session-card {
+      border: 1px solid var(--line);
+      border-left: 5px solid transparent;
+      border-radius: 15px;
+      padding: 14px;
+      background: #ffffff;
+    }
+
+    .session-card.is-break { background: var(--break); border-left-color: var(--break-border); }
+    .session-card.is-completed { background: var(--completed); color: #667085; }
+    .session-card.is-next { background: var(--next); border-left-color: var(--next-border); }
+    .session-card.is-now { background: var(--now); border-left-color: var(--now-border); }
+
+    .card-time {
+      font-weight: 800;
+      color: var(--navy);
+      display: flex;
+      justify-content: center;
+      gap: 10px;
+      margin-bottom: 8px;
+    }
+
+    .card-title {
+      font-weight: 800;
+      font-size: 16px;
+      line-height: 1.35;
+      margin-bottom: 8px;
+    }
+
+    .card-pic {
+      color: var(--muted);
+      font-size: 13px;
+    }
+
+    .editor-table-wrapper {
+      overflow-x: hidden;
+      border: 1px solid var(--line);
+      border-radius: 14px;
+      margin-top: 16px;
+      background: #ffffff;
+    }
+
+    .editor-table {
+      width: 100%;
+      min-width: 0;
+      table-layout: fixed;
+      font-size: 13px;
+    }
+
+    .editor-table th { background: #eef2f6; color: #25324b; padding: 9px 5px; }
+    .editor-table td { padding: 6px 5px; }
+    .editor-table input { width: 100%; padding: 7px 8px; border-radius: 8px; min-width: 0; }
+    .editor-table input[data-field="session"], .editor-table input[data-field="pic"] { white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+    .editor-table .duration-cell { text-align: center; font-weight: 700; color: var(--navy); }
+    .time-control { display: block; }
+    .time-control input[data-field="start_time"], .time-control input[data-field="end_time"] { text-align: center; font-variant-numeric: tabular-nums; }
+    .drag-cell { text-align: center; color: var(--muted); user-select: none; }
+    .drag-handle { display: inline-flex; align-items: center; justify-content: center; width: 28px; height: 32px; border-radius: 8px; cursor: grab; font-weight: 900; }
+    .drag-handle:active { cursor: grabbing; background: #eef2f6; }
+    tr.dragging { opacity: 0.45; }
+    tr.drag-over td { box-shadow: inset 0 2px 0 var(--orange); }
+    .file-input {
+      width: 100%;
+      border: 1px dashed var(--line);
+      border-radius: 12px;
+      padding: 12px;
+      background: #ffffff;
+      margin-bottom: 10px;
+    }
+
+    .empty-state {
+      padding: 30px;
+      text-align: center;
+      color: var(--muted);
+      border: 1px dashed var(--line);
+      background: #ffffff;
+      border-radius: var(--radius);
+    }
+
+    .footer-note {
+      text-align: center;
+      color: var(--muted);
+      font-size: 12px;
+      margin: 28px 0 0;
+    }
+
+
+    .mobile-table-wrap {
+      overflow: hidden;
+    }
+
+    .mobile-agenda-table {
+      width: 100%;
+      border-collapse: collapse;
+      table-layout: fixed;
+      font-size: 12px;
+    }
+
+    .mobile-agenda-table th,
+    .mobile-agenda-table td {
+      padding: 9px 6px;
+      line-height: 1.28;
+      word-break: normal;
+      overflow-wrap: anywhere;
+    }
+
+    .mobile-agenda-table th {
+      font-size: 11px;
+      background: #0c3c4b;
+      color: #ffffff;
+      text-align: center;
+    }
+
+    .mobile-agenda-table td.time,
+    .mobile-agenda-table td.duration,
+    .mobile-agenda-table td.pic {
+      text-align: center;
+    }
+
+    .mobile-agenda-table td.session {
+      font-weight: 800;
+      text-align: left;
+    }
+
+    .mobile-agenda-table .badge {
+      margin-left: 4px;
+      margin-top: 3px;
+      padding: 3px 6px;
+      font-size: 9px;
+      letter-spacing: 0.02em;
+    }
+
+
+    @media (max-width: 820px) {
+      header { padding: 10px 12px; }
+      .brand-row { gap: 10px; }
+      .logo-shell { width: 78px; height: 52px; }
+      h1 { font-size: 21px; }
+      .subtitle { font-size: 12px; }
+      .legend-item { font-size: 11px; padding: 5px 8px; }
+      .desktop-days { display: none; }
+      .mobile-days { display: block; }
+      .day-header { padding: 14px; }
+      .day-title { font-size: 18px; }
+      .day-date { font-size: 13px; }
+      .mobile-agenda-table { font-size: 11px; }
+      .mobile-agenda-table th, .mobile-agenda-table td { padding: 8px 5px; }
+      .admin-grid { grid-template-columns: 1fr; }
+      .topbar { justify-content: center; }
+      .status-pill { width: auto; justify-content: center; }
+      .mini-header-inner { justify-content: flex-start; gap: 8px; }
+      .mini-logo { width: 32px; height: 26px; }
+      main { margin-top: 16px; }
+    }
   </style>
- </head>
- <body>
+</head>
+<body>
   <header>
-   <div class="brand">
-    <div class="logo">
-     <img alt="Bootcamp logo" id="bootcampLogo"/>
-     <div class="fallback" id="logoFallback">
-      <span class="mini">
-       Talent Uplift
-      </span>
-      <span class="big">
-       BOOTCAMP
-      </span>
-      <span class="small">
-       2026
-      </span>
-     </div>
+    <div class="brand-row">
+      <div class="logo-shell" aria-label="Bootcamp logo">
+        <img id="bootcampLogo" alt="Talent Uplift Bootcamp logo" onerror="this.style.display='none';document.getElementById('logoPlaceholder').style.display='inline';" />
+        <span id="logoPlaceholder" class="logo-placeholder">TU</span>
+      </div>
+      <div class="brand-copy">
+        <h1>Talent Uplift Bootcamp 2026 - Live Agenda</h1>
+        <p class="subtitle">Real-time agenda for Talent Pool members</p>
+      </div>
     </div>
-    <div class="brand-copy">
-     <div class="kicker">
-      Start with Why · Simon Sinek
-     </div>
-     <h1>
-      Book Reading & Reflection Event
-     </h1>
-     <p class="subtitle">
-      Read with intention. Reflect with purpose. Bring your leadership insights to the weekly MS Teams discussion.
-     </p>
+
+    <div class="topbar">
+      <div class="status-pill" id="currentTimeLabel">Current time: --</div>
     </div>
-   </div>
+
   </header>
+
+  <div class="mini-header" aria-hidden="true">
+    <div class="mini-header-inner">
+      <img id="miniBootcampLogo" class="mini-logo" alt="" onerror="this.style.display='none';" />
+      <div class="mini-title">Talent Uplift Bootcamp 2026 - Live Agenda</div>
+      <div class="mini-time-pill" id="miniTimeLabel">Current time: --</div>
+    </div>
+  </div>
+
   <main>
-   <section class="card journey">
-    <div class="pad">
-     <h2 class="title">
-      Reading Journey
-     </h2>
-     <p class="sub">
-      Click submitted weeks to review answers and passport snapshots.
-     </p>
-     <div class="weeks" id="journeyList">
-     </div>
-    </div>
-   </section>
-   <section class="detail" id="journeyDetailShell">
-    <div id="journeyDetail">
-    </div>
-   </section>
-   <article class="card phase" id="phaseCard">
-    <div class="phase-label" id="phaseLabel">
-     Loading
-    </div>
-    <h2 id="phaseTitle">
-     Preparing...
-    </h2>
-    <p id="phaseDescription">
-     Please wait.
-    </p>
-    <div class="chips" id="phaseMeta">
-    </div>
-   </article>
-   <section class="card">
-    <div class="pad">
-     <h2 class="title">
-      Weekly Reflection Submission
-     </h2>
-     <p class="sub" id="formIntro">
-      The form appears when the reflection window is open.
-     </p>
-     <div id="reflectionRoot">
-     </div>
-    </div>
-   </section>
-   <section class="cert-wrap" id="certificateWrap">
-    <canvas height="1000" id="certificateCanvas" width="1600">
-    </canvas>
-    <div class="actions" style="justify-content:center">
-     <button class="orange" id="downloadCertificateBtn">
-      Download Passport PNG
-     </button>
-     <button class="secondary" id="printCertificateBtn">
-      Print / Save as PDF
-     </button>
-     <button class="secondary" id="closeCertificateBtn">
-      Close
-     </button>
-    </div>
-    <div class="msg success" style="text-align:center;max-width:760px;margin:12px auto 0">
-     Please upload your reflection passport to the MS Teams group to confirm your weekly completion.
-    </div>
-   </section>
+    <section id="agendaRoot"></section>
+    <p class="footer-note">Please refresh the page if your connection is unstable. Agenda updates sync through Firebase Realtime Database.</p>
   </main>
-  <footer class="admin-shell" id="adminShell">
-   <div class="admin-trigger" id="adminTrigger">
-   </div>
-   <div class="login">
-    <input id="passInput" placeholder="Organizer passcode" type="password"/>
-    <button id="unlockBtn">
-     Organizer Access
-    </button>
-    <button class="secondary" id="lockBtn" style="display:none">
-     Lock
-    </button>
-   </div>
-   <section class="admin" id="adminPanel">
-    <div class="tabs">
-     <button class="tab active" data-tab="setup">
-      Program Setup
-     </button>
-     <button class="tab" data-tab="data">
-      Reflection Data
-     </button>
-     <button class="tab" data-tab="testing">
-      Test Time
-     </button>
+
+  <footer class="footer-admin-shell" id="footerAdminShell">
+    <div class="footer-admin-trigger" id="footerAdminTrigger" aria-label="Footer"></div>
+    <div class="organizer-login" id="organizerLogin">
+      <input id="passInput" type="password" placeholder="Organizer passcode" autocomplete="off" />
+      <button id="unlockBtn">Organizer Access</button>
+      <button class="secondary" id="lockBtn" style="display:none;">Lock</button>
     </div>
-    <div class="admin-view active" id="adminSetupView">
-     <div class="admin-section">
-      <h3>
-       Organizer Setup
-      </h3>
-      <p class="hint">
-       Edit schedule and bilingual questions. Click Save Program Setup to sync across devices via Firebase.
-      </p>
-      <div class="actions">
-       <button class="orange" id="saveProgramBtn">
-        Save Program Setup
-       </button>
-       <button id="addWeekBtn">
-        Add Week
-       </button>
-       <button class="danger" id="resetProgramBtn">
-        Reset to Default Setup
-       </button>
+    <section class="admin-panel" id="adminPanel">
+      <div class="admin-grid">
+        <div class="admin-section">
+          <h3>1. Test Current Time</h3>
+          <p class="hint">This test time only affects your current browser. Viewers will continue using their real time.</p>
+          <input id="testTimeInput" type="datetime-local" />
+          <button class="orange" id="applyTestTimeBtn">Apply Test Time</button>
+          <button class="secondary" id="resetRealTimeBtn">Reset to Real Time</button>
+        </div>
       </div>
-     </div>
-     <div id="weekEditorRoot">
-     </div>
-    </div>
-    <div class="admin-view" id="adminDataView">
-     <div class="admin-section">
-      <h3>
-       Reflection Data View
-      </h3>
-      <div class="row">
-       <div>
-        <label>
-         Week / Session
-        </label>
-        <select id="dataWeekFilter">
-        </select>
-       </div>
-       <div style="display:flex;align-items:end;gap:8px;flex-wrap:wrap">
-        <button class="orange" id="exportCsvBtn">
-         Export CSV
-        </button>
-        <button class="secondary" id="toggleFinalBtn">
-         View Final Submission
-        </button>
-        <button class="danger" id="refreshDataBtn">
-         Clear All Data
-        </button>
-       </div>
+
+      <div class="admin-section" style="margin-top:16px;">
+        <h3>2. Quick CSV Edit</h3>
+        <p class="hint">Use this box only for quick bulk editing, then click <strong>Load CSV to Editor</strong>. Columns: <strong>day,date,start_time,end_time,session,pic</strong>. Duration is calculated automatically.</p>
+        <textarea id="csvInput" class="csv-box" spellcheck="false"></textarea>
+        <div style="display:flex; flex-wrap:wrap; gap:8px; margin-top:10px;">
+          <button id="loadCsvBtn">Load CSV to Editor</button>
+          <button class="danger" id="resetSampleBtn">Reset to Sample Agenda</button>
+        </div>
       </div>
-      <div class="msg" id="dataSummary">
+
+      <div class="admin-section" style="margin-top:16px;">
+        <h3>3. Edit Agenda</h3>
+        <p class="hint">Edit the fields below, then click Save. Duration will update automatically based on start and end time. Use the drag handle to press and move rows into a new order.</p>
+        <div style="display:flex; flex-wrap:wrap; gap:8px; margin-bottom:10px;">
+          <button id="addRowBtn">Add Row</button>
+          <button class="orange" id="saveAgendaBtn">Save Agenda</button>
+        </div>
+        <div class="editor-table-wrapper" id="editorWrapper"></div>
       </div>
-     </div>
-     <div class="table-wrap" id="dataTableWrap">
-     </div>
-    </div>
-    <div class="admin-view" id="adminTestingView">
-     <div class="admin-section">
-      <h3>
-       Test Current Time
-      </h3>
-      <p class="hint">
-       Use for preview only.
-      </p>
-      <div class="actions">
-       <button class="orange" id="openAllWeeksBtn2">
-        🧪 Open All Weeks for Test
-       </button>
-      </div>
-      <div class="row" style="margin-top:18px">
-       <div>
-        <label>
-         Test Date & Time
-        </label>
-        <input id="testTimeInput" type="datetime-local"/>
-       </div>
-       <div style="display:flex;align-items:end;gap:8px;flex-wrap:wrap">
-        <button class="orange" id="applyTestTimeBtn">
-         Apply Test Time
-        </button>
-        <button class="secondary" id="resetRealTimeBtn">
-         Reset to Real Time
-        </button>
-       </div>
-      </div>
-     </div>
-    </div>
-   </section>
+    </section>
+
   </footer>
+
   <script>
-   
-// ===== Firebase Config =====
+
+    /******************************************************************
+     * FIREBASE REALTIME DATABASE CONFIG
+     * Replace the values below with your Firebase web app config.
+     * Firebase Console > Project settings > General > Your apps > Web app
+     * Also enable Realtime Database and copy your databaseURL.
+     ******************************************************************/
 const firebaseConfig = {
-  apiKey: "AIzaSyCdqkQes-UMv3mE11iior9uxwQFrP_8gyY",
-  authDomain: "book-reading-event.firebaseapp.com",
-  databaseURL: "https://book-reading-event-default-rtdb.asia-southeast1.firebasedatabase.app",
-  projectId: "book-reading-event",
-  storageBucket: "book-reading-event.firebasestorage.app",
-  messagingSenderId: "737583007744",
-  appId: "1:737583007744:web:1811d42e90573c0a6eb0e5",
-  measurementId: "G-ZBG3VHSLQY"
+  apiKey: "AIzaSyCud-RcPLUqd83JX8WMP3cZVLP2iXxe11E",
+  authDomain: "bootcamp-live-agenda.firebaseapp.com",
+  databaseURL: "https://bootcamp-live-agenda-default-rtdb.asia-southeast1.firebasedatabase.app",
+  projectId: "bootcamp-live-agenda",
+  storageBucket: "bootcamp-live-agenda.firebasestorage.app",
+  messagingSenderId: "226978470349",
+  appId: "1:226978470349:web:868508a6773858795c4c84",
+  measurementId: "G-GVYE0E5KGS"
 };
+    const ORGANIZER_PASSCODE = "TUB2026";
+    const REALTIME_DB_PATH = "liveAgendas/talent-uplift-bootcamp-2026";
 
-// ===== Constants & Default Reading Plan =====
-const PASS="TUB2026",DB_ROOT="bookReadingEvents/tub2026/start-with-why-v2",LOCAL_PROGRAM="tubook:v2:program",LOCAL_RESP="tubook:v2:responses",BOOTCAMP_LOGO_URL="assets/bootcamp-logo.png",AHR_LOGO_URL="assets/ahr-logo.png",PASSPORT_STAMP_URL="assets/passport.png";
-const defaults={weeks:[{id:"week1",weekNo:1,sessionTitle:"Session 1",chapters:"Chapters 1–3",readingStart:"2026-06-15T00:00",reflectionOpen:"2026-06-16T17:00",reflectionClose:"2026-06-19T15:00",discussionStart:"2026-06-19T15:30",discussionEnd:"2026-06-19T16:00",questions:[{id:"w1q1",chapter:"Chapter 1",en:"What is one idea from Chapter 1 that made you rethink how people make decisions?",vi:"Một ý trong Chương 1 khiến bạn nhìn lại cách con người ra quyết định là gì?"},{id:"w1q2",chapter:"Chapter 2",en:"What is one example of manipulation versus inspiration that you can observe at work?",vi:"Một ví dụ về thao túng so với truyền cảm hứng mà bạn quan sát được trong công việc là gì?"},{id:"w1q3",chapter:"Chapter 3",en:"How would you explain your own WHY in one simple sentence at this point?",vi:"Ở thời điểm này, bạn sẽ diễn đạt WHY của bản thân bằng một câu đơn giản như thế nào?"}]},{id:"week2",weekNo:2,sessionTitle:"Session 2",chapters:"Chapters 4–6",readingStart:"2026-06-22T00:00",reflectionOpen:"2026-06-23T17:00",reflectionClose:"2026-06-26T15:00",discussionStart:"2026-06-26T15:30",discussionEnd:"2026-06-26T16:00",questions:[{id:"w2q1",chapter:"Chapter 4",en:"What did this chapter help you understand about trust in leadership?",vi:"Chương này giúp bạn hiểu gì về niềm tin trong lãnh đạo?"},{id:"w2q2",chapter:"Chapter 5",en:"How does decision-making connect with communication at work?",vi:"Việc ra quyết định liên hệ thế nào với giao tiếp trong công việc?"},{id:"w2q3",chapter:"Chapter 6",en:"What behavior can help you build more trust with teammates or stakeholders?",vi:"Hành vi nào giúp bạn xây dựng thêm niềm tin với đồng đội hoặc stakeholder?"}]},{id:"week3",weekNo:3,sessionTitle:"Session 3",chapters:"Chapters 7–10",readingStart:"2026-06-29T00:00",reflectionOpen:"2026-06-30T17:00",reflectionClose:"2026-07-03T15:00",discussionStart:"2026-07-03T15:30",discussionEnd:"2026-07-03T16:00",questions:[{id:"w3q1",chapter:"Chapter 7",en:"What does this chapter suggest about turning belief into action?",vi:"Chương này gợi ý điều gì về việc biến niềm tin thành hành động?"},{id:"w3q2",chapter:"Chapter 8–10",en:"What lesson can you apply when working with your team during Bootcamp?",vi:"Bài học nào bạn có thể áp dụng khi làm việc nhóm trong Bootcamp?"}]},{id:"week4",weekNo:4,sessionTitle:"Session 4",chapters:"Chapters 11–14",readingStart:"2026-07-06T00:00",reflectionOpen:"2026-07-07T17:00",reflectionClose:"2026-07-10T15:00",discussionStart:"2026-07-10T15:30",discussionEnd:"2026-07-10T16:00",questions:[{id:"w4q1",chapter:"Chapter 11–13",en:"What lesson feels most relevant to your development journey?",vi:"Bài học nào liên quan nhất đến hành trình phát triển của bạn?"},{id:"w4q2",chapter:"Final Application",en:"What commitment will you carry into Talent Uplift Bootcamp 2026?",vi:"Cam kết nào bạn sẽ mang vào Talent Uplift Bootcamp 2026?"}]}]};
+    const sampleAgenda = [
+      { day: "DAY 1", date: "2026-07-15", start_time: "08:30", end_time: "08:50", session: "Bootcamp Opening: Kick off & Warm up", pic: "Aaron" },
+      { day: "DAY 1", date: "2026-07-15", start_time: "08:50", end_time: "09:30", session: "Business Case Team Formation: Team Leader Challenge", pic: "MC / AHR" },
+      { day: "DAY 1", date: "2026-07-15", start_time: "09:30", end_time: "11:30", session: "Capability Station 1: Business Acumen for Problem Solving", pic: "Jane" },
+      { day: "DAY 1", date: "2026-07-15", start_time: "11:30", end_time: "12:30", session: "Lunch & Networking", pic: "" },
+      { day: "DAY 1", date: "2026-07-15", start_time: "12:30", end_time: "12:40", session: "Energizer: Reset & Refocus", pic: "MC / AHR" },
+      { day: "DAY 1", date: "2026-07-15", start_time: "12:40", end_time: "14:40", session: "Capability Station 2: Facilitating Change", pic: "Rose / Doan" },
+      { day: "DAY 1", date: "2026-07-15", start_time: "14:40", end_time: "16:40", session: "Capability Station 3: Stakeholder Influence & Network Collaboration", pic: "Minh" },
 
-// ===== Runtime State =====
-let program=clone(defaults),responses={},dbReady=false,firebaseInitPromise=null,db,ref,set,get,onValue,testNow=null,selectedWeekId=null,editingWeekId=null,activeCertificate=null,admin=false,finalOnly=false;const el=id=>document.getElementById(id);
+      { day: "DAY 2", date: "2026-07-16", start_time: "08:30", end_time: "09:00", session: "Day 1 Reflection", pic: "MC / AHR" },
+      { day: "DAY 2", date: "2026-07-16", start_time: "09:00", end_time: "11:00", session: "Capability Station 4: Operational Excellence & Decision Making", pic: "Thao VC / Cong VC" },
+      { day: "DAY 2", date: "2026-07-16", start_time: "11:00", end_time: "11:30", session: "Integration Activity: 4 Capability Stations Mind map", pic: "MC / AHR" },
+      { day: "DAY 2", date: "2026-07-16", start_time: "11:30", end_time: "12:30", session: "Lunch Break", pic: "" },
+      { day: "DAY 2", date: "2026-07-16", start_time: "12:30", end_time: "12:40", session: "Energizer: Reset & Refocus", pic: "MC / AHR" },
+      { day: "DAY 2", date: "2026-07-16", start_time: "12:40", end_time: "13:40", session: "Leadership Journey Mapping: From Potential to Readiness", pic: "Minh / Rose" },
+      { day: "DAY 2", date: "2026-07-16", start_time: "13:40", end_time: "14:10", session: "Business Case Briefing", pic: "Case Providers – TBC" },
+      { day: "DAY 2", date: "2026-07-16", start_time: "14:10", end_time: "14:40", session: "Case-Solving Mini workshop: Problem Solving & Business Recommendation", pic: "MC / AHR" },
+      { day: "DAY 2", date: "2026-07-16", start_time: "14:40", end_time: "16:40", session: "Business Case Challenge - Team Discussion", pic: "Mentor & Group Observation: Thao VC, Cong VC, Doan" },
 
-// ===== Utilities =====
-function clone(x){return JSON.parse(JSON.stringify(x))}
-function esc(x){return String(x??"").replaceAll("&","&amp;").replaceAll("<","&lt;").replaceAll(">","&gt;").replaceAll('"',"&quot;").replaceAll("'","&#039;")}
-function attr(x){return esc(x).replaceAll("\n","&#10;")}
-function norm(data){const p=clone(defaults);p.weeks=(data?.weeks||[]).map((w,i)=>({id:w.id||`week${i+1}`,weekNo:+(w.weekNo||i+1),sessionTitle:w.sessionTitle||`Session ${i+1}`,chapters:w.chapters||"Chapters",readingStart:w.readingStart,reflectionOpen:w.reflectionOpen,reflectionClose:w.reflectionClose,discussionStart:w.discussionStart,discussionEnd:w.discussionEnd,questions:(w.questions||[]).map((q,j)=>({id:q.id||`${w.id}q${j+1}`,chapter:q.chapter||"Chapter",en:q.en||"Question",vi:q.vi||"Câu hỏi"}))})).sort((a,b)=>a.weekNo-b.weekNo);return p}
-function loadLocal(){try{const p=localStorage.getItem(LOCAL_PROGRAM);if(p)program=norm(JSON.parse(p));const r=localStorage.getItem(LOCAL_RESP);if(r)responses=JSON.parse(r)||{}}catch(e){}}
-function saveLocal(){localStorage.setItem(LOCAL_PROGRAM,JSON.stringify(program));localStorage.setItem(LOCAL_RESP,JSON.stringify(responses))}
+      { day: "DAY 3", date: "2026-07-17", start_time: "08:30", end_time: "09:20", session: "Team Finalization: Executive Presentation Preparation", pic: "" },
+      { day: "DAY 3", date: "2026-07-17", start_time: "09:20", end_time: "09:30", session: "Showcase Setup & Final Submission", pic: "MC / AHR" },
+      { day: "DAY 3", date: "2026-07-17", start_time: "09:30", end_time: "09:55", session: "Business Case Showcase & Panel Feedback – Team 1", pic: "Panel: Aaron, Gabriel, Minh, Rose, Jane" },
+      { day: "DAY 3", date: "2026-07-17", start_time: "09:55", end_time: "10:20", session: "Business Case Showcase & Panel Feedback – Team 2", pic: "Panel: Aaron, Gabriel, Minh, Rose, Jane" },
+      { day: "DAY 3", date: "2026-07-17", start_time: "10:20", end_time: "10:45", session: "Business Case Showcase & Panel Feedback – Team 3", pic: "Panel: Aaron, Gabriel, Minh, Rose, Jane" },
+      { day: "DAY 3", date: "2026-07-17", start_time: "10:45", end_time: "10:55", session: "Short Break", pic: "" },
+      { day: "DAY 3", date: "2026-07-17", start_time: "10:55", end_time: "11:20", session: "Appreciation & Recognition", pic: "Aaron, Gabriel, Minh, Rose, Jane\nMC / AHR" },
+      { day: "DAY 3", date: "2026-07-17", start_time: "11:20", end_time: "11:30", session: "Closing + 30-Day Commitment Challenge", pic: "Aaron + AHR" }
+    ];
 
-// ===== Firebase Init =====
-async function initFirebase(){try{const a=await import("https://www.gstatic.com/firebasejs/10.12.5/firebase-app.js"),d=await import("https://www.gstatic.com/firebasejs/10.12.5/firebase-database.js");db=d.getDatabase(a.initializeApp(firebaseConfig));ref=d.ref;set=d.set;get=d.get;onValue=d.onValue;dbReady=true;onValue(ref(db,`${DB_ROOT}/program`),s=>{if(s.val()?.weeks){program=norm(s.val());localStorage.setItem(LOCAL_PROGRAM,JSON.stringify(program));render()}else{console.warn("No Firebase program setup found yet. Use Save Program Setup to publish the current setup.")}});onValue(ref(db,`${DB_ROOT}/responses`),s=>{responses=s.val()||{};localStorage.setItem(LOCAL_RESP,JSON.stringify(responses));render()})}catch(e){console.error("Firebase init failed",e);dbReady=false}}
-async function ensureFirebaseReady(){if(dbReady)return true;try{firebaseInitPromise=firebaseInitPromise||initFirebase();await firebaseInitPromise}catch(e){console.error("Firebase reconnect failed",e)}return dbReady}
-async function syncProgramToFirebase(successMessage="Saved locally and synced to Firebase."){program=norm(program);saveLocal();const ready=await ensureFirebaseReady();if(!ready){alert("Saved locally. Firebase is not connected yet. Refresh the page and try Save Program Setup again.");render();return false}try{await set(ref(db,`${DB_ROOT}/program`),program);alert(successMessage);render();return true}catch(e){console.error("Firebase program save blocked",e);alert("Saved locally, but Firebase sync is blocked. Please check Realtime Database Rules for: "+DB_ROOT+"/program");render();return false}}
-function parse(v){return new Date(v)}
-function fmt(v){if(!v)return"--";const d=parse(v);return isNaN(d)?v:d.toLocaleString("en-GB",{weekday:"short",day:"2-digit",month:"short",hour:"2-digit",minute:"2-digit"})}
-function dateOnly(v){if(!v)return"--";const d=parse(v);return isNaN(d)?v:d.toLocaleDateString("en-GB",{weekday:"short",day:"2-digit",month:"short"})}
-function now(){return testNow?new Date(testNow):new Date()}
-function phase(w,t=now()){if(t<parse(w.readingStart))return"upcoming";if(t<parse(w.reflectionOpen))return"reading";if(t<parse(w.reflectionClose))return"open";if(t<=parse(w.discussionEnd))return"closed";return"completed"}
+    let agenda = [...sampleAgenda];
+    let adminUnlocked = false;
+    let testNow = null;
+    let realtimeDbReady = false;
+    let db = null;
+    let agendaRef = null;
+    let setDbFn = null;
+    const BOOTCAMP_LOGO_URL = "assets/bootcamp-logo.png";
+    let logoUrl = BOOTCAMP_LOGO_URL;
+    let dragStartIndex = null;
+    let editorHistory = [];
+    let editorHistoryIndex = -1;
+    let isRestoringHistory = false;
 
-// ===== Participant, Progress & Status Helpers =====
-function p(){try{return JSON.parse(localStorage.getItem("tubook:participant")||"null")}catch(e){return null}}
-function saveP(n,d){const obj={fullName:n.trim(),department:d.trim()};localStorage.setItem("tubook:participant",JSON.stringify(obj));return obj}
-function slug(x){return String(x||"").normalize("NFD").replace(/[\u0300-\u036f]/g,"").toLowerCase().replace(/[^a-z0-9]+/g,"-").replace(/^-+|-+$/g,"")||"participant"}
-function key(pp=p()){return `${slug(pp?.fullName)}__${slug(pp?.department)}`}
-function resp(w,pp=p()){return pp?responses?.[w.id]?.[key(pp)]||null:null}
-function prog(pp=p()){const weeks=program.weeks,done=weeks.filter(w=>resp(w,pp)),ids=new Set(done.map(w=>w.id)),first=weeks.find(w=>!ids.has(w.id));return{weeks,done,ids,first}}
-function action(pp=p()){const pr=prog(pp);if(!pr.first)return{mode:"all",week:pr.weeks[pr.weeks.length-1],...pr};const w=pr.first,started=now()>=parse(w.reflectionOpen);return{mode:started?"form":"waiting",week:w,catchUp:started&&phase(w)!=="open",...pr}}
-function b(st){let map={submitted:["submitted","Submitted"],open:["open","Open"],reading:["reading","Reading"],closed:["closed","Closed"],completed:["closed","Closed"],upcoming:["upcoming","Upcoming"]},x=map[st]||map.upcoming;return`<span class="badge ${x[0]}">${x[1]}</span>`}
-function selected(){return program.weeks.find(w=>w.id===selectedWeekId)||prog(p()).done.at(-1)||program.weeks[0]}
+    const el = (id) => document.getElementById(id);
 
-// ===== Main Render Functions =====
-function render(){logo();journey();detail();phaseCard();form();if(admin){adminSetup();dataView()}}
-function logo(){let img=el("bootcampLogo"),fb=el("logoFallback");img.src=BOOTCAMP_LOGO_URL;img.onload=()=>{img.style.display="block";fb.style.display="none"};img.onerror=()=>{img.style.display="none";fb.style.display="block"}}
-function journey(){const pp=p(),ac=action(pp),sel=selected();el("journeyList").innerHTML=program.weeks.map(w=>{const r=resp(w,pp),st=r?"submitted":ac.week?.id===w.id&&ac.mode==="form"?"open":phase(w);let cls=`week ${r?"completed":""} ${ac.week?.id===w.id&&!r?"action":""} ${sel?.id===w.id?"selected":""}`;let helper=r?`Submitted on ${fmt(r.updatedAt||r.submittedAt)}.`:st==="open"?"Submit now to unlock the next week.":st==="reading"?`Reflection opens ${fmt(w.reflectionOpen)}.`:st==="upcoming"?"Upcoming": "Closed";return`<div class="${cls}" data-w="${w.id}"><div class="top"><div><h3>Week ${w.weekNo} · ${esc(w.sessionTitle)}</h3><p><strong>${esc(w.chapters)}</strong></p></div>${b(st)}</div><p>Reflection Meeting: ${dateOnly(w.discussionStart)}</p></div>`}).join("");document.querySelectorAll("[data-w]").forEach(c=>c.onclick=()=>{selectedWeekId=c.dataset.w;journey();detail()})}
-function detail(){const w=selected(),pp=p(),r=resp(w,pp),shell=el("journeyDetailShell"),root=el("journeyDetail");if(!w||!pp||!r){shell.classList.remove("open");root.innerHTML="";return}shell.classList.add("open");const attemptCount=r.submissionCount||r.attempts?.length||1;const left=`<div class="chips"><span class="chip">📚 ${esc(w.chapters)}</span><span class="chip">🕒 ${fmt(r.updatedAt||r.submittedAt)}</span><span class="chip">📝 ${attemptCount} submit(s)</span><span class="chip">🪪 ${esc(r.certificateId)}</span></div>${(r.answers||[]).map((a,i)=>`<div class="answer"><div class="label">Question ${i+1} · ${esc(a.chapter)}</div><p class="q">${esc(a.questionEn)}</p><p class="v">${esc(a.questionVi)}</p><div class="body">${esc(a.answer)}</div></div>`).join("")}`;const canEdit=now()<parse(w.reflectionClose);const right=`<div class="msg success">Submission found. You can reopen the passport snapshot for this week.</div><div class="actions"><button id="passportBtn" class="orange">View Passport for Week ${w.weekNo}</button>${canEdit?`<button id="editWeekBtn" class="secondary">Edit Answers</button>`:""}</div><div class="msg">If you used another browser/name format, save the matching profile and try again.</div>`;root.innerHTML=`<div class="detail-grid"><div class="panel"><div style="display:flex;justify-content:space-between;gap:12px"><div><h3>Week ${w.weekNo} · ${esc(w.sessionTitle)}</h3><p class="sub">Submitted reflection review</p></div>${b("submitted")}</div>${left}</div><div class="panel"><h3>Week Snapshot</h3><p class="sub">Reflection: ${fmt(w.reflectionOpen)} → ${fmt(w.reflectionClose)}</p><div class="chips"><span class="chip">💬 Teams: ${fmt(w.discussionStart)} → ${fmt(w.discussionEnd)}</span></div>${right}</div></div>`;el("passportBtn").onclick=()=>passport(r,w);const editBtn=el("editWeekBtn");if(editBtn)editBtn.onclick=()=>editWeek(w.id)}
-function editWeek(id){editingWeekId=id;selectedWeekId=id;form();journey();detail();setTimeout(()=>el("reflectionRoot")?.scrollIntoView({behavior:"smooth",block:"start"}),80)}
-function phaseCard(){const ac=action(p()),card=el("phaseCard"),lab=el("phaseLabel"),title=el("phaseTitle"),desc=el("phaseDescription"),meta=el("phaseMeta");if(ac.mode==="all"){card.className="card phase closed";lab.textContent="Completed";title.textContent="All reflections completed";desc.textContent="Review submitted weeks from Reading Journey.";meta.innerHTML=`<span class="chip">✅ ${ac.done.length} / ${ac.weeks.length}</span>`;return}let w=ac.week,ph=ac.mode==="waiting"?phase(w):"open";card.className=`card phase ${ph}`;if(ac.mode==="waiting"){lab.textContent=ph==="reading"?"Reading":"Upcoming";title.textContent=`Reading Focus: Week ${w.weekNo}`;desc.textContent=`Please spend your time to read ${w.chapters}. The reflection submission will open at ${fmt(w.reflectionOpen)}.`}else{lab.textContent="Open";title.textContent=`Reading Focus: Week ${w.weekNo} · ${w.sessionTitle}`;desc.textContent=ac.catchUp?`Complete Week ${w.weekNo} first to unlock the next checkpoint.`:`Submit your reflection before ${fmt(w.reflectionClose)}.`}meta.innerHTML=`<span class="chip">📚 ${esc(w.chapters)}</span><span class="chip">📝 ${fmt(w.reflectionOpen)} → ${fmt(w.reflectionClose)}</span><span class="chip">💬 ${fmt(w.discussionStart)} → ${fmt(w.discussionEnd)}</span>`}
-function profile(pp=p()||{}){return`<div class="profile"><div class="row"><div><label>Full Name</label><input id="fullNameInput" value="${attr(pp.fullName||"")}" placeholder="Your full name"></div><div><label>Department</label><input id="departmentInput" value="${attr(pp.department||"")}" placeholder="Your department"></div></div><div class="actions"><button id="saveProfileBtn" class="secondary">Save My Info</button></div></div>`}
-function bindProfile(){let x=el("saveProfileBtn");if(x)x.onclick=()=>{let n=el("fullNameInput").value.trim(),d=el("departmentInput").value.trim();if(!n||!d)return alert("Please enter Full Name and Department.");saveP(n,d);render()}}
+    function isFirebaseConfigured() {
+      return (
+        firebaseConfig.apiKey &&
+        !firebaseConfig.apiKey.includes("PASTE_YOUR") &&
+        firebaseConfig.databaseURL &&
+        !firebaseConfig.databaseURL.includes("PASTE_YOUR")
+      );
+    }
 
-// ===== Reflection Form, Edit Answers & Submit History =====
-function form(){const root=el("reflectionRoot"),intro=el("formIntro"),pp=p(),ac=action(pp);let editW=editingWeekId?program.weeks.find(x=>x.id===editingWeekId):null;if(editW&&(!pp||!resp(editW,pp)))editW=editingWeekId=null;if(ac.mode==="all"&&!editW){intro.textContent="";root.innerHTML=`${profile(pp)}<button id="latest" class="orange">Open My Passport</button>`;bindProfile();el("latest").onclick=()=>passport(resp(ac.week,pp)||{fullName:pp.fullName,department:pp.department,participantKey:key(pp),certificateId:`TUBR-PASSPORT-${key(pp).slice(0,12).toUpperCase()}`,updatedAt:new Date().toISOString()},ac.week);return}let w=editW||ac.week;if(!editW&&ac.mode==="waiting"){intro.textContent="";root.innerHTML=`${profile(pp)}<div class="msg warn">Please read ${esc(w.chapters)}. Reflection opens ${fmt(w.reflectionOpen)}.</div>`;bindProfile();return}let r=resp(w,pp),ans={};r?.answers?.forEach(a=>ans[a.questionId]=a.answer);const attemptCount=r?(r.submissionCount||r.attempts?.length||1):0;intro.textContent=editW?`Editing submitted answers for Week ${w.weekNo}`:"";root.innerHTML=`<div class="profile"><div class="row"><div><label>Full Name</label><input id="fullNameInput" value="${attr(pp?.fullName||"")}" placeholder="Your full name"></div><div><label>Department</label><input id="departmentInput" value="${attr(pp?.department||"")}" placeholder="Your department"></div></div><div class="msg">Answers will be saved to <strong>${esc(w.sessionTitle)} · ${esc(w.chapters)}</strong>.${r?` This update will be recorded as submit #${attemptCount+1}.`:""}</div></div>${w.questions.map((q,i)=>`<div class="question"><span class="chapter">${esc(q.chapter)}</span><p class="q-en">${i+1}. ${esc(q.en)}</p><p class="q-vi">${esc(q.vi)}</p><textarea data-q="${attr(q.id)}" placeholder="Write your reflection here...">${esc(ans[q.id]||"")}</textarea></div>`).join("")}<div class="actions"><button id="submitBtn" class="orange">${r?"Update Reflection & Passport":"Submit Reflection & Update Passport"}</button>${r?`<button id="viewPass" class="secondary">View Passport</button>`:""}${editW?`<button id="cancelEdit" class="secondary">Cancel Edit</button>`:""}</div><div id="formMsg"></div>`;el("submitBtn").onclick=()=>submit(w);if(r)el("viewPass").onclick=()=>passport(r,w);const cancel=el("cancelEdit");if(cancel)cancel.onclick=()=>{editingWeekId=null;render()}}
-function summary(a,b,c){return""}
-function msg(t,cls=""){let m=el("formMsg");if(m)m.innerHTML=`<div class="msg ${cls}">${esc(t)}</div>`}
-async function submit(w){let n=el("fullNameInput").value.trim(),d=el("departmentInput").value.trim();if(!n||!d)return msg("Please complete Full Name and Department.","error");let pp=saveP(n,d),k=key(pp),answers=w.questions.map(q=>{let ta=document.querySelector(`textarea[data-q="${CSS.escape(q.id)}"]`);return{questionId:q.id,chapter:q.chapter,questionEn:q.en,questionVi:q.vi,answer:ta?.value.trim()||""}});if(answers.some(a=>!a.answer))return msg("Please answer all questions.","error");let ex=responses?.[w.id]?.[k],nowIso=new Date().toISOString(),attempts=Array.isArray(ex?.attempts)?ex.attempts.slice():ex?[{attemptNo:1,answers:ex.answers||[],submittedAt:ex.submittedAt||ex.updatedAt||nowIso}]:[];let attemptNo=attempts.length+1;attempts.push({attemptNo,answers,submittedAt:nowIso});let r={participantKey:k,fullName:pp.fullName,department:pp.department,weekId:w.id,weekNo:w.weekNo,sessionTitle:w.sessionTitle,chapters:w.chapters,answers,attempts,submissionCount:attempts.length,certificateId:ex?.certificateId||`TUBR-PASSPORT-${k.slice(0,12).toUpperCase()}`,submittedAt:ex?.submittedAt||nowIso,updatedAt:nowIso};responses[w.id]=responses[w.id]||{};responses[w.id][k]=r;saveLocal();if(dbReady)try{await set(ref(db,`${DB_ROOT}/responses/${w.id}/${k}`),r)}catch(e){}selectedWeekId=w.id;editingWeekId=null;msg(`Saved as submit #${attemptNo}. Passport ready below.`,"success");passport(r,w);render()}
+    async function initFirebase() {
+      if (!isFirebaseConfigured()) {
+        console.info("Firebase Realtime Database is not configured yet. Using sample/local agenda.");
+        return;
+      }
 
-// ===== Certificate / Passport Popup & Canvas Drawing =====
-async function passport(r,w){activeCertificate={response:r,week:w};await drawCert(r,w);el("certificateWrap").classList.add("open")}
-function img(src){return new Promise(res=>{let i=new Image();i.onload=()=>res(i);i.onerror=()=>res(null);i.src=src})}
-function contain(ctx,i,x,y,w,h){if(!i)return false;let ratio=Math.min(w/i.width,h/i.height),dw=i.width*ratio,dh=i.height*ratio;ctx.drawImage(i,x+(w-dw)/2,y+(h-dh)/2,dw,dh);return true}
-function wrapText(ctx,text,x,y,maxWidth,lineHeight,maxLines=3){const words=String(text||"").split(" ");let line="",lines=[];for(let n=0;n<words.length;n++){const test=line+words[n]+" ";if(ctx.measureText(test).width>maxWidth&&n>0){lines.push(line.trim());line=words[n]+" ";if(lines.length>=maxLines-1)break}else line=test}lines.push(line.trim());lines.slice(0,maxLines).forEach((ln,i)=>ctx.fillText(ln,x,y+i*lineHeight));return y+lines.length*lineHeight}
-async function drawCert(r,w){let c=el("certificateCanvas"),ctx=c.getContext("2d"),W=c.width,H=c.height;ctx.clearRect(0,0,W,H);let [boot,ahr,passportStamp]=await Promise.all([img(BOOTCAMP_LOGO_URL),img(AHR_LOGO_URL),img(PASSPORT_STAMP_URL)]),weeks=program.weeks,k=r.participantKey||key({fullName:r.fullName,department:r.department}),target=w.weekNo,doneSet=new Set(weeks.filter(x=>x.weekNo<=target&&responses?.[x.id]?.[k]).map(x=>x.weekNo));doneSet.add(target);ctx.fillStyle="#fffdf8";ctx.fillRect(0,0,W,H);let g=ctx.createLinearGradient(0,0,W,H);g.addColorStop(0,"rgba(242,99,34,.09)");g.addColorStop(.58,"rgba(255,255,255,0)");g.addColorStop(1,"rgba(6,42,99,.08)");ctx.fillStyle=g;ctx.fillRect(0,0,W,H);ctx.strokeStyle="#062a63";ctx.lineWidth=8;ctx.strokeRect(54,54,W-108,H-108);ctx.strokeStyle="#f26322";ctx.lineWidth=2;ctx.setLineDash([12,12]);ctx.strokeRect(84,84,W-168,H-168);ctx.setLineDash([]);contain(ctx,boot,110,108,250,88)||(()=>{ctx.textAlign="left";ctx.fillStyle="#062a63";ctx.font="bold 31px Arial";ctx.fillText("TALENT UPLIFT",118,148);ctx.fillStyle="#f26322";ctx.font="bold 20px Arial";ctx.fillText("BOOTCAMP 2026",118,174)})();contain(ctx,ahr,W-360,108,250,88)||(()=>{ctx.textAlign="right";ctx.fillStyle="#0b3a48";ctx.font="bold 27px Arial";ctx.fillText("Asia Human Resources",W-118,148)})();ctx.textAlign="center";ctx.fillStyle="#f26322";ctx.font="bold 18px Arial";ctx.fillText("START WITH WHY · SIMON SINEK",W/2,142);ctx.fillStyle="#f26322";ctx.font="bold 34px Arial";ctx.fillText("READING REFLECTION CERTIFICATE",W/2,276);ctx.fillStyle="#667085";ctx.font="22px Arial";ctx.fillText("This certifies that",W/2,350);ctx.fillStyle="#062a63";ctx.font="bold 72px Georgia";ctx.fillText(r.fullName||"Participant",W/2,438);ctx.strokeStyle="rgba(6,42,99,.18)";ctx.lineWidth=2;ctx.beginPath();ctx.moveTo(390,472);ctx.lineTo(W-390,472);ctx.stroke();ctx.fillStyle="#344054";ctx.font="22px Arial";wrapText(ctx,`has completed Week ${w.weekNo} Reflection for Start with Why — ${w.chapters} as part of Talent Uplift Bootcamp 2026.`,W/2,540,930,36,3);ctx.fillStyle="#0b3a48";ctx.font="bold 27px Arial";ctx.fillText(`${w.sessionTitle}`,W/2,636);let y=738,start=520,gap=185;ctx.strokeStyle="rgba(6,42,99,.14)";ctx.lineWidth=4;ctx.beginPath();ctx.moveTo(start,y);ctx.lineTo(start+gap*(weeks.length-1),y);ctx.stroke();weeks.forEach((x,i)=>{let cx=start+gap*i,ok=doneSet.has(x.weekNo);ctx.textAlign="center";ctx.beginPath();ctx.arc(cx,y,38,0,Math.PI*2);ctx.fillStyle=ok?"#18a058":"#fff";ctx.fill();ctx.strokeStyle=ok?"#18a058":"#d0d5dd";ctx.lineWidth=4;ctx.stroke();if(ok){ctx.strokeStyle="#fff";ctx.lineWidth=6;ctx.lineCap="round";ctx.beginPath();ctx.moveTo(cx-14,y+1);ctx.lineTo(cx-3,y+13);ctx.lineTo(cx+18,y-12);ctx.stroke()}else{ctx.fillStyle="#98a2b3";ctx.font="bold 20px Arial";ctx.fillText(String(x.weekNo),cx,y+7)}ctx.fillStyle="#062a63";ctx.font="bold 16px Arial";ctx.fillText(`Week ${x.weekNo}`,cx,y+60);ctx.fillStyle="#667085";ctx.font="14px Arial";wrapText(ctx,x.chapters||"",cx,y+80,128,17,2)});let d=new Date(r.updatedAt||r.submittedAt);ctx.textAlign="left";ctx.fillStyle="#667085";ctx.font="17px Arial";ctx.fillText("Issued Date",132,846);ctx.fillStyle="#172033";ctx.font="bold 22px Arial";ctx.fillText(d.toLocaleDateString("en-GB",{day:"2-digit",month:"short",year:"numeric"}),132,876);ctx.textAlign="right";ctx.fillStyle="#667085";ctx.font="17px Arial";ctx.fillText("Certificate ID",W-132,846);ctx.fillStyle="#172033";ctx.font="bold 19px Arial";ctx.fillText(r.certificateId||"",W-132,876)}
-function download(){
-  try{
-    const canvas=el("certificateCanvas");
-    const a=document.createElement("a");
-    a.download=`Reading-Reflection-Passport-${slug(activeCertificate?.response?.fullName||"participant")}.png`;
-    a.href=canvas.toDataURL("image/png");
-    document.body.appendChild(a);
-    a.click();
-    a.remove();
-  }catch(error){
-    console.error("Passport download failed",error);
-    alert("Download failed. You can still save your certificate by clicking Print / Save as PDF, or right-clicking the certificate image and choosing Save image as.");
-  }
-}
+      try {
+        const firebaseApp = await import("https://www.gstatic.com/firebasejs/10.12.5/firebase-app.js");
+        const firebaseDb = await import("https://www.gstatic.com/firebasejs/10.12.5/firebase-database.js");
 
-// ===== Organizer Setup =====
-function readingStartFrom(v){let d=new Date(v);if(isNaN(d))return v;let offset=(d.getDay()+6)%7;d.setDate(d.getDate()-offset);d.setHours(0,0,0,0);return localDT(d)}
-function adminSetup(){let root=el("weekEditorRoot");root.innerHTML=program.weeks.map((w,i)=>`<div class="week-editor"><div class="week-editor-head"><h4>Week ${w.weekNo} · ${esc(w.sessionTitle)}</h4></div><div class="week-editor-body"><div class="setup-block"><h4>1. Week & Schedule Setup</h4><div class="editor-grid three"><div><label>Week No</label><input data-w="${i}" data-f="weekNo" type="number" value="${w.weekNo}"></div><div><label>Session Title</label><input data-w="${i}" data-f="sessionTitle" value="${attr(w.sessionTitle)}"></div><div><label>Chapters</label><input data-w="${i}" data-f="chapters" value="${attr(w.chapters)}"></div></div><div class="editor-grid"><div><label>Reflection Open</label><input data-w="${i}" data-f="reflectionOpen" type="datetime-local" value="${w.reflectionOpen}"></div><div><label>Reflection Close</label><input data-w="${i}" data-f="reflectionClose" type="datetime-local" value="${w.reflectionClose}"></div><div><label>Discussion Start</label><input data-w="${i}" data-f="discussionStart" type="datetime-local" value="${w.discussionStart}"></div><div><label>Discussion End</label><input data-w="${i}" data-f="discussionEnd" type="datetime-local" value="${w.discussionEnd}"></div></div></div><div class="question-block"><div class="question-head"><h4>2. Bilingual Reflection Questions</h4><button class="small" data-addq="${i}">Add Question</button></div>${w.questions.map((q,j)=>`<div class="q-editor"><div class="editor-grid three"><div><label>Chapter / Section</label><input data-w="${i}" data-q="${j}" data-qf="chapter" value="${attr(q.chapter)}"></div><div style="grid-column:span 2"><label>Question EN</label><textarea data-w="${i}" data-q="${j}" data-qf="en">${esc(q.en)}</textarea></div><div style="grid-column:span 3"><label>Question VI</label><textarea data-w="${i}" data-q="${j}" data-qf="vi">${esc(q.vi)}</textarea></div></div></div>`).join("")}</div></div></div>`).join("");root.querySelectorAll("[data-f]").forEach(x=>x.oninput=()=>{let w=program.weeks[+x.dataset.w],f=x.dataset.f;w[f]=f==="weekNo"?+x.value:x.value;if(f==="reflectionOpen")w.readingStart=readingStartFrom(x.value)});root.querySelectorAll("[data-qf]").forEach(x=>x.oninput=()=>program.weeks[+x.dataset.w].questions[+x.dataset.q][x.dataset.qf]=x.value);root.querySelectorAll("[data-addq]").forEach(x=>x.onclick=()=>{let w=program.weeks[+x.dataset.addq];w.questions.push({id:`${w.id}q${Date.now()}`,chapter:"Chapter",en:"New question",vi:"Câu hỏi mới"});adminSetup()})}
-function localDT(d){let z=n=>String(n).padStart(2,"0");return`${d.getFullYear()}-${z(d.getMonth()+1)}-${z(d.getDate())}T${z(d.getHours())}:${z(d.getMinutes())}`}
-async function openAll(){let n=new Date(),a=new Date(n-7200000),b=new Date(n-3600000),c=new Date(n.getTime()+2592000000),d=new Date(n.getTime()+2593800000),e=new Date(n.getTime()+2595600000);program.weeks=program.weeks.map(w=>({...w,readingStart:localDT(a),reflectionOpen:localDT(b),reflectionClose:localDT(c),discussionStart:localDT(d),discussionEnd:localDT(e)}));saveLocal();render();if(admin)adminSetup();await syncProgramToFirebase("All weeks are open for testing and synced to Firebase.")}
-async function saveProgram(){await syncProgramToFirebase("Saved locally and synced to Firebase.")}
-function addWeek(){let n=program.weeks.length+1;program.weeks.push({id:`week${n}`,weekNo:n,sessionTitle:`Session ${n}`,chapters:"Chapters",readingStart:"2026-06-15T00:00",reflectionOpen:"2026-06-16T17:00",reflectionClose:"2026-06-19T15:00",discussionStart:"2026-06-19T15:30",discussionEnd:"2026-06-19T16:00",questions:[{id:`week${n}q1`,chapter:"Chapter",en:"Reflection question",vi:"Câu hỏi reflection"}]});saveLocal();render()}
+        const app = firebaseApp.initializeApp(firebaseConfig);
+        db = firebaseDb.getDatabase(app);
+        agendaRef = firebaseDb.ref(db, REALTIME_DB_PATH);
+        setDbFn = firebaseDb.set;
+        realtimeDbReady = true;
 
-// ===== Reflection Data View & CSV Export =====
-function dataRows(f){let ids=f==="all"?Object.keys(responses):[f];let records=ids.flatMap(id=>Object.values(responses[id]||{}));return records.flatMap(r=>{let attempts=Array.isArray(r.attempts)&&r.attempts.length?r.attempts:[{attemptNo:r.submissionCount||1,answers:r.answers||[],submittedAt:r.updatedAt||r.submittedAt}];if(finalOnly){let a=attempts[attempts.length-1]||{};return[{...r,answers:a.answers||r.answers||[],attemptNo:a.attemptNo||attempts.length,attemptSubmittedAt:a.submittedAt||r.updatedAt||r.submittedAt,isFinal:true}]}return attempts.map((a,i)=>({...r,answers:a.answers||[],attemptNo:a.attemptNo||i+1,attemptSubmittedAt:a.submittedAt||r.submittedAt,isFinal:i===attempts.length-1}))})}
-function recordSummary(r){return (r.answers||[]).map(a=>`${a.chapter||""}: ${a.answer||""}`).join(" | ")}
-function dataView(){let f=el("dataWeekFilter"),val=f.value||"all";f.innerHTML=`<option value="all">All Weeks</option>`+program.weeks.map(w=>`<option value="${w.id}">Week ${w.weekNo} · ${esc(w.chapters)}</option>`).join("");f.value=[...f.options].some(o=>o.value===val)?val:"all";let rows=dataRows(f.value);let toggle=el("toggleFinalBtn");if(toggle)toggle.textContent=finalOnly?"View All Submissions":"View Final Submission";el("dataSummary").innerHTML=`<strong>${rows.length}</strong> record(s) · ${finalOnly?"final submissions only":"all submission attempts"}`;el("dataTableWrap").innerHTML=rows.length?`<table><thead><tr><th>Week</th><th>Name</th><th>Department</th><th>Submit #</th><th>Submitted At</th><th>Final?</th><th>Summary</th><th>Action</th></tr></thead><tbody>${rows.map(r=>`<tr><td>Week ${esc(r.weekNo)}<br>${esc(r.chapters||"")}</td><td>${esc(r.fullName)}</td><td>${esc(r.department)}</td><td>${esc(r.attemptNo||1)}</td><td>${fmt(r.attemptSubmittedAt||r.updatedAt||r.submittedAt)}</td><td>${r.isFinal?"Yes":""}</td><td>${(r.answers||[]).map(a=>`<strong>${esc(a.chapter)}:</strong> ${esc(a.answer)}`).join("<br><br>")}</td><td><button class="small danger" data-del-record="${esc(r.weekId)}|${esc(r.participantKey)}">Delete</button></td></tr>`).join("")}</tbody></table>`:`<div class="empty">No submissions yet.</div>`;document.querySelectorAll("[data-del-record]").forEach(btn=>btn.onclick=()=>{const [weekId,participantKey]=btn.dataset.delRecord.split("|");deleteRecord(weekId,participantKey)})}
-function exportCsv(){let rows=dataRows(el("dataWeekFilter").value),csv="week,name,department,attempt_no,submitted_at,is_final,summary\n"+rows.map(r=>[r.weekNo,r.fullName,r.department,r.attemptNo||1,r.attemptSubmittedAt||r.updatedAt||r.submittedAt,r.isFinal?"Yes":"",recordSummary(r)].map(x=>`"${String(x||"").replaceAll('"','""')}"`).join(",")).join("\n"),blob=new Blob(["\ufeff"+csv],{type:"text/csv;charset=utf-8"}),a=document.createElement("a");a.href=URL.createObjectURL(blob);a.download=finalOnly?"reflection-final-submissions.csv":"reflection-all-submissions.csv";a.click();URL.revokeObjectURL(a.href)}
-async function deleteRecord(weekId,participantKey){if(!weekId||!participantKey)return;if(!confirm("Delete this submitted record?"))return;if(responses[weekId]){delete responses[weekId][participantKey];if(!Object.keys(responses[weekId]).length)delete responses[weekId]}saveLocal();if(dbReady)try{await set(ref(db,`${DB_ROOT}/responses/${weekId}/${participantKey}`),null)}catch(e){console.warn("Firebase delete blocked",e)}dataView();render()}
-async function clearAllData(){if(!confirm("Delete ALL submitted reflection data? This cannot be undone."))return;responses={};saveLocal();if(dbReady)try{await set(ref(db,`${DB_ROOT}/responses`),null)}catch(e){console.warn("Firebase clear blocked",e)}dataView();render()}
-async function resetProgramSetup(){if(!confirm("Reset setup?"))return;program=clone(defaults);saveLocal();render();if(admin)adminSetup();await syncProgramToFirebase("Default setup restored and synced to Firebase.")}
+        firebaseDb.onValue(agendaRef, (snapshot) => {
+          const data = snapshot.val();
+          if (data && Array.isArray(data.items)) {
+            agenda = normalizeAgenda(data.items);
+            logoUrl = BOOTCAMP_LOGO_URL;
+            applyLogo();
+            renderAll();
+            if (adminUnlocked) {
+              updateCsvFromAgenda();
+              renderEditor();
+            }
+          } else {
+            agenda = normalizeAgenda(sampleAgenda);
+            renderAll();
+            if (adminUnlocked) {
+              updateCsvFromAgenda();
+              renderEditor();
+            }
+          }
+        }, (error) => {
+          console.error("Realtime Database listener error:", error);
+          realtimeDbReady = false;
+        });
+      } catch (error) {
+        console.error("Firebase Realtime Database could not be loaded. The agenda will still work with local sample/editor data.", error);
+        realtimeDbReady = false;
+      }
+    }
 
-// ===== Event Binding =====
-function bind(){el("downloadCertificateBtn").onclick=download;el("printCertificateBtn").onclick=()=>window.print();el("closeCertificateBtn").onclick=()=>el("certificateWrap").classList.remove("open");let adminClickCount=0,adminClickTimer=null;el("adminTrigger").onclick=()=>{adminClickCount++;clearTimeout(adminClickTimer);adminClickTimer=setTimeout(()=>adminClickCount=0,1200);if(adminClickCount>=5){adminClickCount=0;el("adminShell").classList.add("open");el("passInput").focus()}};el("unlockBtn").onclick=()=>{if(el("passInput").value!==PASS)return alert("Incorrect passcode");admin=true;el("adminPanel").classList.add("open");el("lockBtn").style.display="inline-block";el("adminShell").classList.add("open");adminSetup();dataView()};el("lockBtn").onclick=()=>{admin=false;el("adminPanel").classList.remove("open");el("lockBtn").style.display="none"};document.querySelectorAll(".tab").forEach(t=>t.onclick=()=>{document.querySelectorAll(".tab").forEach(x=>x.classList.remove("active"));document.querySelectorAll(".admin-view").forEach(x=>x.classList.remove("active"));t.classList.add("active");el(`admin${t.dataset.tab.charAt(0).toUpperCase()+t.dataset.tab.slice(1)}View`).classList.add("active");if(t.dataset.tab==="data")dataView()});el("saveProgramBtn").onclick=saveProgram;if(el("openAllWeeksBtn"))el("openAllWeeksBtn").onclick=openAll;if(el("openAllWeeksBtn2"))el("openAllWeeksBtn2").onclick=openAll;el("addWeekBtn").onclick=addWeek;el("resetProgramBtn").onclick=resetProgramSetup;el("dataWeekFilter").onchange=dataView;el("exportCsvBtn").onclick=exportCsv;el("toggleFinalBtn").onclick=()=>{finalOnly=!finalOnly;dataView()};el("refreshDataBtn").onclick=clearAllData;el("applyTestTimeBtn").onclick=()=>{if(!el("testTimeInput").value)return;testNow=el("testTimeInput").value;render()};el("resetRealTimeBtn").onclick=()=>{testNow=null;el("testTimeInput").value="";render()}}
-bind();loadLocal();render();firebaseInitPromise=initFirebase();setInterval(render,30000);
+    function normalizeAgenda(items) {
+      const normalized = items
+        .filter(item => item && item.date && item.start_time && item.end_time && item.session)
+        .map(item => {
+          const normalizedDate = normalizeDate(item.date);
+          return {
+            day: String(item.day || "").trim() || deriveDayLabel(normalizedDate),
+            date: normalizedDate,
+            start_time: toHHMM(item.start_time),
+            end_time: toHHMM(item.end_time),
+            session: cleanSingleLine(item.session),
+            pic: cleanSingleLine(item.pic)
+          };
+        });
+      return fixAmbiguousExcelTimes(normalized);
+    }
 
+    function timeToMinutes(value) {
+      const match = String(value || "").match(/^(\d{1,2}):(\d{2})$/);
+      if (!match) return NaN;
+      return Number(match[1]) * 60 + Number(match[2]);
+    }
+
+    function minutesToHHMM(minutes) {
+      const safe = ((minutes % 1440) + 1440) % 1440;
+      const hour = Math.floor(safe / 60);
+      const minute = safe % 60;
+      return `${String(hour).padStart(2, "0")}:${String(minute).padStart(2, "0")}`;
+    }
+
+    function fixAmbiguousExcelTimes(items) {
+      let currentGroup = "";
+      let previousEnd = null;
+
+      return items.map(item => {
+        const groupKey = `${item.date}|${item.day}`;
+        if (groupKey !== currentGroup) {
+          currentGroup = groupKey;
+          previousEnd = null;
+        }
+
+        let start = timeToMinutes(item.start_time);
+        let end = timeToMinutes(item.end_time);
+
+        if (Number.isFinite(start) && Number.isFinite(end)) {
+          // Excel sometimes turns 14:40 into 2:40 when a downloaded CSV is edited and saved again.
+          // If a time suddenly jumps backwards within the same agenda day, treat it as afternoon time.
+          while (previousEnd !== null && start < previousEnd - 5 && start < 12 * 60) {
+            start += 12 * 60;
+            end += 12 * 60;
+          }
+          while (end <= start && end < 12 * 60) {
+            end += 12 * 60;
+          }
+
+          item.start_time = minutesToHHMM(start);
+          item.end_time = minutesToHHMM(end);
+          previousEnd = end;
+        }
+
+        return item;
+      });
+    }
+
+    function cleanSingleLine(value) {
+      return String(value || "").replace(/\s*\r?\n\s*/g, " / ").replace(/\s+/g, " ").trim();
+    }
+
+    function normalizeDate(value) {
+      const text = String(value || "").trim().replace(/^="(.*)"$/, "$1").replace(/^'(.*)$/, "$1");
+      if (/^\d{4}-\d{1,2}-\d{1,2}$/.test(text)) {
+        const [y, m, d] = text.split("-");
+        return `${y.padStart(4, "0")}-${m.padStart(2, "0")}-${d.padStart(2, "0")}`;
+      }
+
+      const slash = text.match(/^(\d{1,2})\/(\d{1,2})\/(\d{2,4})$/);
+      if (slash) {
+        let a = Number(slash[1]);
+        let b = Number(slash[2]);
+        let y = slash[3].length === 2 ? Number(`20${slash[3]}`) : Number(slash[3]);
+        // Excel usually exports dates as M/D/YYYY for this file, e.g. 7/15/2026.
+        let month = a;
+        let day = b;
+        if (a > 12 && b <= 12) {
+          day = a;
+          month = b;
+        }
+        return `${String(y).padStart(4, "0")}-${String(month).padStart(2, "0")}-${String(day).padStart(2, "0")}`;
+      }
+
+      const parsed = new Date(text);
+      if (!Number.isNaN(parsed.getTime())) {
+        return `${parsed.getFullYear()}-${String(parsed.getMonth() + 1).padStart(2, "0")}-${String(parsed.getDate()).padStart(2, "0")}`;
+      }
+
+      return text;
+    }
+
+    function deriveDayLabel(dateString) {
+      const uniqueDates = [...new Set(sampleAgenda.map(x => x.date))];
+      const idx = uniqueDates.indexOf(dateString);
+      return idx >= 0 ? `DAY ${idx + 1}` : "DAY";
+    }
+
+    function toHHMM(value) {
+      const text = String(value || "").trim().replace(/^="(.*)"$/, "$1").replace(/^'(.*)$/, "$1");
+      const ampm = text.match(/^(\d{1,2}):(\d{2})(?::\d{2})?\s*(AM|PM)$/i);
+      if (ampm) {
+        let hour = Number(ampm[1]);
+        const minute = ampm[2];
+        const period = ampm[3].toUpperCase();
+        if (period === "PM" && hour < 12) hour += 12;
+        if (period === "AM" && hour === 12) hour = 0;
+        return `${String(hour).padStart(2, "0")}:${minute}`;
+      }
+
+      const match = text.match(/^(\d{1,2}):(\d{2})(?::\d{2})?/);
+      if (!match) return text;
+      return `${match[1].padStart(2, "0")}:${match[2]}`;
+    }
+
+    function startDate(item) {
+      return new Date(`${item.date}T${item.start_time}:00`);
+    }
+
+    function endDate(item) {
+      return new Date(`${item.date}T${item.end_time}:00`);
+    }
+
+    function durationMinutes(item) {
+      const minutes = Math.round((endDate(item) - startDate(item)) / 60000);
+      return Number.isFinite(minutes) ? minutes : 0;
+    }
+
+    function displayDate(dateString) {
+      const date = new Date(`${dateString}T00:00:00`);
+      if (Number.isNaN(date.getTime())) return dateString;
+      return date.toLocaleDateString("en-GB", { day: "2-digit", month: "short" });
+    }
+
+    function formatNow(date) {
+      return date.toLocaleString("en-GB", {
+        weekday: "short",
+        day: "2-digit",
+        month: "short",
+        year: "numeric",
+        hour: "2-digit",
+        minute: "2-digit"
+      });
+    }
+
+    function isBreak(item) {
+      return /break|lunch|networking/i.test(item.session || "");
+    }
+
+    function isCapability(item) {
+      return /capability station|business case showcase|leadership journey mapping|business case briefing/i.test(item.session || "");
+    }
+
+    function getNow() {
+      return testNow ? new Date(testNow) : new Date();
+    }
+
+    function getStateMap(now) {
+      const stateMap = new Map();
+      const sorted = [...agenda].sort((a, b) => startDate(a) - startDate(b));
+      const current = sorted.find(item => now >= startDate(item) && now < endDate(item));
+      const upcoming = sorted.find(item => startDate(item) > now);
+
+      sorted.forEach(item => {
+        const key = itemKey(item);
+        if (current && itemKey(current) === key) stateMap.set(key, "now");
+        else if (upcoming && itemKey(upcoming) === key) stateMap.set(key, "next");
+        else if (endDate(item) <= now) stateMap.set(key, "completed");
+        else stateMap.set(key, "future");
+      });
+
+      return stateMap;
+    }
+
+    function itemKey(item) {
+      return `${item.date}|${item.start_time}|${item.end_time}|${item.session}`;
+    }
+
+    function rowClasses(item, state) {
+      const classes = [];
+      if (isBreak(item)) classes.push("is-break");
+      if (state === "completed") classes.push("is-completed");
+      if (state === "next") classes.push("is-next");
+      if (state === "now") classes.push("is-now");
+      return classes.join(" ");
+    }
+
+    function badges(item, state) {
+      let output = "";
+      if (state === "now") output += `<span class="badge now">Now</span>`;
+      if (state === "next") output += `<span class="badge next">Up Next</span>`;
+      if (isBreak(item)) output += `<span class="badge break">Break</span>`;
+      return output;
+    }
+
+    function escapeHtml(text) {
+      return String(text || "")
+        .replaceAll("&", "&amp;")
+        .replaceAll("<", "&lt;")
+        .replaceAll(">", "&gt;")
+        .replaceAll('"', "&quot;")
+        .replaceAll("'", "&#039;")
+        .replaceAll("\n", "<br>");
+    }
+
+    function escapeAttr(text) {
+      return String(text || "")
+        .replaceAll("&", "&amp;")
+        .replaceAll("<", "&lt;")
+        .replaceAll(">", "&gt;")
+        .replaceAll('"', "&quot;")
+        .replaceAll("'", "&#039;");
+    }
+
+
+    function applyLogo() {
+      const img = el("bootcampLogo");
+      const placeholder = el("logoPlaceholder");
+      if (logoUrl) {
+        img.src = logoUrl;
+        img.style.display = "block";
+        placeholder.style.display = "none";
+      } else {
+        img.removeAttribute("src");
+        img.style.display = "none";
+        placeholder.style.display = "inline";
+      }
+    }
+
+    function moveAgendaRow(fromIndex, toIndex) {
+      if (fromIndex === null || toIndex === null || fromIndex === toIndex) return;
+      const moved = agenda.splice(fromIndex, 1)[0];
+      agenda.splice(toIndex, 0, moved);
+      dragStartIndex = null;
+      renderAll();
+      renderEditor();
+      pushEditorHistory();
+    }
+
+    function groupByDate(items) {
+      const groups = new Map();
+      items.forEach(item => {
+        if (!groups.has(item.date)) groups.set(item.date, []);
+        groups.get(item.date).push(item);
+      });
+      return [...groups.entries()].map(([date, rows]) => ({ date, rows }));
+    }
+
+    function renderAll() {
+      const now = getNow();
+      const timeText = `${testNow ? "Test time" : "Current time"}: ${formatNow(now)}`;
+      el("currentTimeLabel").textContent = timeText;
+      el("miniTimeLabel").textContent = timeText;
+      renderAgenda();
+    }
+
+    function renderAgenda() {
+      const root = el("agendaRoot");
+      const now = getNow();
+      const stateMap = getStateMap(now);
+      const groups = groupByDate(agenda);
+
+      if (!groups.length) {
+        root.innerHTML = `<div class="empty-state">No agenda data available.</div>`;
+        return;
+      }
+
+      const desktop = groups.map(({ date, rows }) => {
+        const day = rows[0]?.day || "DAY";
+        const body = rows.map(item => {
+          const state = stateMap.get(itemKey(item));
+          return `
+            <tr class="${rowClasses(item, state)}">
+              <td class="time">${escapeHtml(item.start_time)} - ${escapeHtml(item.end_time)}</td>
+              <td class="duration">${durationMinutes(item)}</td>
+              <td class="session ${isCapability(item) ? "capability" : ""}">${escapeHtml(item.session)} ${badges(item, state)}</td>
+              <td class="pic">${escapeHtml(item.pic)}</td>
+            </tr>
+          `;
+        }).join("");
+
+        return `
+          <article class="agenda-day">
+            <div class="day-header">
+              <h2 class="day-title">${escapeHtml(day)}</h2>
+              <span class="day-date">${displayDate(date)}</span>
+            </div>
+            <div class="desktop-days">
+              <table>
+                <thead>
+                  <tr>
+                    <th style="width:18%;">Time</th>
+                    <th style="width:12%;">Duration<br>(min)</th>
+                    <th style="width:43%;">Session Name</th>
+                    <th style="width:27%;">Lead / Facilitator</th>
+                  </tr>
+                </thead>
+                <tbody>${body}</tbody>
+              </table>
+            </div>
+          </article>
+        `;
+      }).join("");
+
+      const mobile = groups.map(({ date, rows }) => {
+        const day = rows[0]?.day || "DAY";
+        const body = rows.map(item => {
+          const state = stateMap.get(itemKey(item));
+          return `
+            <tr class="${rowClasses(item, state)}">
+              <td class="time">${escapeHtml(item.start_time)}<br>${escapeHtml(item.end_time)}</td>
+              <td class="duration">${durationMinutes(item)}</td>
+              <td class="session ${isCapability(item) ? "capability" : ""}">${escapeHtml(item.session)} ${badges(item, state)}</td>
+              <td class="pic">${escapeHtml(item.pic || "")}</td>
+            </tr>
+          `;
+        }).join("");
+
+        return `
+          <article class="agenda-day mobile-days">
+            <div class="day-header">
+              <h2 class="day-title">${escapeHtml(day)}</h2>
+              <span class="day-date">${displayDate(date)}</span>
+            </div>
+            <div class="mobile-table-wrap">
+              <table class="mobile-agenda-table">
+                <thead>
+                  <tr>
+                    <th style="width:20%;">Time</th>
+                    <th style="width:12%;">Min</th>
+                    <th style="width:44%;">Session</th>
+                    <th style="width:24%;">Lead</th>
+                  </tr>
+                </thead>
+                <tbody>${body}</tbody>
+              </table>
+            </div>
+          </article>
+        `;
+      }).join("");
+
+      root.innerHTML = `<div class="desktop-days">${desktop}</div>${mobile}`;
+    }
+
+    function parseCSV(text) {
+      const rows = [];
+      let row = [];
+      let cell = "";
+      let inQuotes = false;
+
+      for (let i = 0; i < text.length; i++) {
+        const char = text[i];
+        const next = text[i + 1];
+
+        if (char === '"' && inQuotes && next === '"') {
+          cell += '"';
+          i++;
+        } else if (char === '"') {
+          inQuotes = !inQuotes;
+        } else if (char === ',' && !inQuotes) {
+          row.push(cell.trim());
+          cell = "";
+        } else if ((char === '\n' || char === '\r') && !inQuotes) {
+          if (char === '\r' && next === '\n') i++;
+          row.push(cell.trim());
+          if (row.some(value => value !== "")) rows.push(row);
+          row = [];
+          cell = "";
+        } else {
+          cell += char;
+        }
+      }
+
+      row.push(cell.trim());
+      if (row.some(value => value !== "")) rows.push(row);
+      if (!rows.length) return [];
+
+      const headers = rows[0].map(h => h.toLowerCase().trim());
+      return rows.slice(1).map(values => {
+        const obj = {};
+        headers.forEach((header, index) => obj[header] = values[index] || "");
+        return {
+          day: obj.day,
+          date: obj.date,
+          start_time: obj.start_time,
+          end_time: obj.end_time,
+          session: obj.session,
+          pic: obj.pic
+        };
+      });
+    }
+
+    function toCSV(items) {
+      const headers = ["day", "date", "start_time", "end_time", "session", "pic"];
+      const escapeCsv = (value) => {
+        const text = String(value || "");
+        if (/[",\n]/.test(text)) return `"${text.replaceAll('"', '""')}"`;
+        return text;
+      };
+      return [headers.join(","), ...items.map(item => headers.map(h => escapeCsv(item[h])).join(","))].join("\n");
+    }
+
+
+    function updateCsvFromAgenda() {
+      const csvInput = el("csvInput");
+      if (csvInput) csvInput.value = toCSV(agenda);
+    }
+
+    function snapshotAgenda() {
+      return JSON.stringify(agenda);
+    }
+
+    function resetEditorHistory() {
+      editorHistory = [snapshotAgenda()];
+      editorHistoryIndex = 0;
+    }
+
+    function pushEditorHistory() {
+      if (isRestoringHistory) return;
+      const snapshot = snapshotAgenda();
+      if (editorHistory[editorHistoryIndex] === snapshot) return;
+      editorHistory = editorHistory.slice(0, editorHistoryIndex + 1);
+      editorHistory.push(snapshot);
+      if (editorHistory.length > 80) editorHistory.shift();
+      editorHistoryIndex = editorHistory.length - 1;
+    }
+
+    function restoreEditorHistory(targetIndex) {
+      if (targetIndex < 0 || targetIndex >= editorHistory.length) return;
+      isRestoringHistory = true;
+      editorHistoryIndex = targetIndex;
+      agenda = JSON.parse(editorHistory[editorHistoryIndex]);
+      renderAll();
+      renderEditor();
+      isRestoringHistory = false;
+    }
+
+    function undoEditorChange() {
+      restoreEditorHistory(editorHistoryIndex - 1);
+    }
+
+    function redoEditorChange() {
+      restoreEditorHistory(editorHistoryIndex + 1);
+    }
+
+    function renderEditor() {
+      const wrapper = el("editorWrapper");
+      const rows = agenda.map((item, index) => `
+        <tr data-row-index="${index}">
+          <td class="drag-cell" title="Drag this icon to reorder">
+            <span class="drag-handle" draggable="true" data-drag-index="${index}">☰</span>
+          </td>
+          <td><input data-index="${index}" data-field="day" value="${escapeAttr(item.day)}" /></td>
+          <td><input data-index="${index}" data-field="date" type="date" value="${escapeAttr(item.date)}" /></td>
+          <td>
+            <div class="time-control">
+              <input data-index="${index}" data-field="start_time" type="text" inputmode="numeric" maxlength="5" placeholder="HH:mm" value="${escapeAttr(item.start_time)}" />
+            </div>
+          </td>
+          <td>
+            <div class="time-control">
+              <input data-index="${index}" data-field="end_time" type="text" inputmode="numeric" maxlength="5" placeholder="HH:mm" value="${escapeAttr(item.end_time)}" />
+            </div>
+          </td>
+          <td class="duration-cell" data-duration-index="${index}">${durationMinutes(item)}</td>
+          <td><input data-index="${index}" data-field="session" value="${escapeAttr(item.session)}" /></td>
+          <td><input data-index="${index}" data-field="pic" value="${escapeAttr(item.pic)}" /></td>
+          <td><button class="small danger" data-delete-index="${index}">Delete</button></td>
+        </tr>
+      `).join("");
+
+      wrapper.innerHTML = `
+        <table class="editor-table">
+          <thead>
+            <tr>
+              <th style="width:4%;">Move</th>
+              <th style="width:7%;">Day</th>
+              <th style="width:11%;">Date</th>
+              <th style="width:8%;">Start</th>
+              <th style="width:8%;">End</th>
+              <th style="width:7%;">Duration</th>
+              <th style="width:31%;">Session</th>
+              <th style="width:18%;">PIC</th>
+              <th style="width:6%;">Action</th>
+            </tr>
+          </thead>
+          <tbody>${rows}</tbody>
+        </table>
+      `;
+
+      wrapper.querySelectorAll("input[data-field]").forEach(input => {
+        input.addEventListener("input", (event) => {
+          const index = Number(event.target.dataset.index);
+          const field = event.target.dataset.field;
+          agenda[index][field] = event.target.value;
+          const durationCell = wrapper.querySelector(`[data-duration-index="${index}"]`);
+          if (durationCell) durationCell.textContent = durationMinutes(agenda[index]);
+          renderAgenda();
+          pushEditorHistory();
+        });
+
+        input.addEventListener("blur", (event) => {
+          const index = Number(event.target.dataset.index);
+          const field = event.target.dataset.field;
+          if (field === "start_time" || field === "end_time") {
+            agenda[index][field] = toHHMM(event.target.value);
+            event.target.value = agenda[index][field];
+            const durationCell = wrapper.querySelector(`[data-duration-index="${index}"]`);
+            if (durationCell) durationCell.textContent = durationMinutes(agenda[index]);
+            renderAgenda();
+            pushEditorHistory();
+          }
+        });
+      });
+
+      wrapper.addEventListener("keydown", (event) => {
+        if (!event.ctrlKey && !event.metaKey) return;
+        const key = event.key.toLowerCase();
+        if (key === "z") {
+          event.preventDefault();
+          if (event.shiftKey) redoEditorChange();
+          else undoEditorChange();
+        }
+        if (key === "y") {
+          event.preventDefault();
+          redoEditorChange();
+        }
+      });
+
+      wrapper.querySelectorAll(".drag-handle").forEach(handle => {
+        handle.addEventListener("dragstart", (event) => {
+          dragStartIndex = Number(handle.dataset.dragIndex);
+          const row = handle.closest("tr");
+          if (row) row.classList.add("dragging");
+          event.dataTransfer.effectAllowed = "move";
+        });
+
+        handle.addEventListener("dragend", () => {
+          const row = handle.closest("tr");
+          if (row) row.classList.remove("dragging");
+          wrapper.querySelectorAll("tr.drag-over").forEach(r => r.classList.remove("drag-over"));
+        });
+      });
+
+      wrapper.querySelectorAll("tr[data-row-index]").forEach(row => {
+        row.addEventListener("dragover", (event) => {
+          if (dragStartIndex === null) return;
+          event.preventDefault();
+          row.classList.add("drag-over");
+        });
+
+        row.addEventListener("dragleave", () => row.classList.remove("drag-over"));
+
+        row.addEventListener("drop", (event) => {
+          if (dragStartIndex === null) return;
+          event.preventDefault();
+          const dropIndex = Number(row.dataset.rowIndex);
+          moveAgendaRow(dragStartIndex, dropIndex);
+        });
+      });
+
+      wrapper.querySelectorAll("button[data-delete-index]").forEach(button => {
+        button.addEventListener("click", () => {
+          const index = Number(button.dataset.deleteIndex);
+          agenda.splice(index, 1);
+          renderAll();
+          renderEditor();
+          pushEditorHistory();
+        });
+      });
+    }
+
+    async function saveAgenda() {
+      agenda = normalizeAgenda(agenda);
+      updateCsvFromAgenda();
+      renderAll();
+      renderEditor();
+      pushEditorHistory();
+
+      if (!realtimeDbReady || !agendaRef || !setDbFn) {
+        alert("Firebase Realtime Database is not configured yet. The agenda is updated only in this browser.");
+        return;
+      }
+
+      await setDbFn(agendaRef, {
+        title: "Talent Uplift Bootcamp 2026 – Live Agenda",
+        items: agenda,
+        logoUrl: BOOTCAMP_LOGO_URL,
+        updatedAt: new Date().toISOString()
+      });
+      alert("Agenda saved to Firebase Realtime Database. Viewers will see the update in real time.");
+    }
+
+    function unlockAdmin() {
+      if (el("passInput").value === ORGANIZER_PASSCODE) {
+        adminUnlocked = true;
+        el("adminPanel").classList.add("open");
+        el("lockBtn").style.display = "inline-block";
+        updateCsvFromAgenda();
+        resetEditorHistory();
+        el("footerAdminShell").classList.add("open");
+        applyLogo();
+        renderEditor();
+        el("adminPanel").scrollIntoView({ behavior: "smooth", block: "start" });
+      } else {
+        alert("Incorrect organizer passcode.");
+      }
+    }
+
+    function lockAdmin() {
+      adminUnlocked = false;
+      el("adminPanel").classList.remove("open");
+      el("lockBtn").style.display = "none";
+      el("passInput").value = "";
+      el("footerAdminShell").classList.remove("open");
+    }
+
+    function downloadText(filename, text) {
+      const blob = new Blob(["﻿" + text], { type: "text/csv;charset=utf-8" });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement("a");
+      a.href = url;
+      a.download = filename;
+      document.body.appendChild(a);
+      a.click();
+      a.remove();
+      URL.revokeObjectURL(url);
+    }
+
+    el("unlockBtn").addEventListener("click", unlockAdmin);
+    el("lockBtn").addEventListener("click", lockAdmin);
+    el("passInput").addEventListener("keydown", (event) => {
+      if (event.key === "Enter") unlockAdmin();
+    });
+
+    el("footerAdminTrigger").addEventListener("click", () => {
+      el("footerAdminShell").classList.toggle("open");
+      if (el("footerAdminShell").classList.contains("open")) el("passInput").focus();
+    });
+
+
+    el("loadCsvBtn").addEventListener("click", () => {
+      const parsed = parseCSV(el("csvInput").value);
+      const cleaned = normalizeAgenda(parsed);
+      if (!cleaned.length) {
+        alert("CSV could not be loaded. Please check the column names and data format.");
+        return;
+      }
+      agenda = cleaned;
+      renderAll();
+      renderEditor();
+      pushEditorHistory();
+    });
+
+
+    el("resetSampleBtn").addEventListener("click", () => {
+      if (!confirm("Reset editor to sample agenda? This will not save until you click Save Agenda.")) return;
+      agenda = normalizeAgenda(sampleAgenda);
+      updateCsvFromAgenda();
+      renderAll();
+      renderEditor();
+      pushEditorHistory();
+    });
+
+    el("addRowBtn").addEventListener("click", () => {
+      agenda.push({ day: "DAY 1", date: "2026-07-15", start_time: "08:30", end_time: "09:00", session: "New Session", pic: "TBC" });
+      agenda = normalizeAgenda(agenda);
+      renderAll();
+      renderEditor();
+      pushEditorHistory();
+    });
+
+    el("saveAgendaBtn").addEventListener("click", saveAgenda);
+
+    el("applyTestTimeBtn").addEventListener("click", () => {
+      const value = el("testTimeInput").value;
+      if (!value) {
+        alert("Please select a test date and time.");
+        return;
+      }
+      testNow = value;
+      renderAll();
+    });
+
+    el("resetRealTimeBtn").addEventListener("click", () => {
+      testNow = null;
+      el("testTimeInput").value = "";
+      renderAll();
+    });
+
+    let scrollTicking = false;
+    window.addEventListener("scroll", () => {
+      if (scrollTicking) return;
+      scrollTicking = true;
+      requestAnimationFrame(() => {
+        const shouldCompact = window.scrollY > 140;
+        document.body.classList.toggle("compact-header", shouldCompact);
+        scrollTicking = false;
+      });
+    }, { passive: true });
+
+    agenda = normalizeAgenda(sampleAgenda);
+    el("csvInput").value = toCSV(agenda);
+    applyLogo();
+    renderAll();
+    initFirebase();
+    setInterval(renderAll, 30000);
   </script>
- </body>
+</body>
 </html>
